@@ -1,0 +1,9 @@
+{
+    "database_host": "172.16.51.64",
+    "database_port": "3306",
+    "database_username": "webthailong",
+    "database_password": "1234@DBthailong",
+    "database_name": "operamart",
+    "listen_port": "1274",
+    "listen_socket": "3020"
+}

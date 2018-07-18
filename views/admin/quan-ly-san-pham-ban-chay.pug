@@ -1,0 +1,160 @@
+extends adminLayout
+block css
+    link(rel="stylesheet" href="../assets/app/vendor/bootstrap/css/bootstrap.css")
+
+    link(rel="stylesheet" href="../assets/app/vendor/font-awesome/css/font-awesome.css")
+    link(rel="stylesheet" href="../assets/app/vendor/magnific-popup/magnific-popup.css")
+    link(rel="stylesheet" href="../assets/app/vendor/bootstrap-datepicker/css/datepicker3.css")
+    link(rel="stylesheet" href="../assets/app/vendor/pnotify/pnotify.custom.css")
+    link(rel="stylesheet" href="../assets/app/vendor/jquery-ui/css/ui-lightness/jquery-ui-1.10.4.custom.css")
+    link(rel="stylesheet" href="../assets/app/vendor/bootstrap-multiselect/bootstrap-multiselect.css")
+    link(rel="stylesheet" href="../assets/app/vendor/morris/morris.css")
+    link(rel="stylesheet" href="../assets/app/vendor/select2/select2.css")
+    link(rel="stylesheet" href="../assets/app/vendor/jquery-datatables-bs3/assets/css/datatables.css")
+
+block info
+    style(type='text/css').
+        .bottom {
+            visibility: hidden;
+            bottom: 0;
+            position: absolute;
+        }
+    script.
+        var page_name = "sanpham-page";
+        var page_sub_name="quan-ly-san-pham-ban-chay";
+        var option_value = "#{option.value}";
+block header
+    header.page-header
+        h2 Danh sách sản phẩm bán chạy
+        div(class="right-wrapper pull-right")
+            ol.breadcrumbs
+                li
+                    a(href="dashboard")
+                        i(class="fa fa-home")
+                li
+                    span Quản lý sản phẩm bán chạy
+                li
+                    span Danh sách sản phẩm bán chạy
+
+            a(class="sidebar-right-toggle" data-open="sidebar-right")
+                i(class="fa fa-chevron-left")
+
+block content
+
+    // start: page
+    section.panel
+
+        header(class="panel-heading")
+            div(class="panel-actions")
+                a(href="#" class="panel-action panel-action-toggle" data-panel-toggle)
+                a(href="#" class="panel-action panel-action-dismiss" data-panel-dismiss)
+            h2.panel-title Cách hiển thị sản phẩm bán chạy
+
+        div.panel-body
+
+            .radio-custom
+                if option.value == 1
+                    input#radioExample1(type='radio', name='radioExample' checked onclick="change_option(1)")
+                else
+                    input#radioExample1(type='radio', name='radioExample' onclick="change_option(1)")
+                label(for='radioExample1') Hiển thị sản phẩm bán chạy theo doanh số
+            .radio-custom
+                if option.value == 2
+                    input#radioExample2(type='radio', name='radioExample' checked onclick="change_option(2)")
+                else
+                    input#radioExample2(type='radio', name='radioExample' onclick="change_option(2)")
+                label(for='radioExample1') Hiển thị sản phẩm bán chạy tự chọn
+
+
+            .form-group
+                select.col-md-9.control-label#product_select(data-plugin-selecttwo='')
+                    option(value="-1") Chưa chọn
+                    -for (var i = 0; i < sanpham.length; i++)
+                        option(value=sanpham[i].id data-code=sanpham[i].code) #{sanpham[i].name}
+                .col-md-3
+                    button.btn.btn-primary(onclick="them_san_pham()")= "Thêm đơn hàng"
+
+
+            button.bottom#addToTable.btn.btn-primary
+                | Add
+                i.fa.fa-plus
+
+            table.table.table-bordered.table-striped.mb-none#datatable-tabletools()
+                thead
+                    tr
+                        th Mã sản phẩm
+                        th Tên sản phẩm
+                        th Thứ tự sắp xếp
+                        th Hành động
+                tbody
+                    each obj in bestSell
+                        tr.gradeX(id='product-'+obj.product_id)
+                            td #{obj.code}
+                            td #{obj.name}
+                            td.canEdit(id="id"+obj.id) #{obj.order}
+                            td.actions
+                                a.hidden.on-editing.save-row(href='#')
+                                    i.fa.fa-save
+                                a.hidden.on-editing.cancel-row(href='#')
+                                    i.fa.fa-times
+                                a.on-default.edit-row(href='#')
+                                    i.fa.fa-pencil
+                                a.on-default.remove-row(href='#')
+                                    i.fa.fa-trash-o
+
+            #dialog.modal-block.mfp-hide
+                section.panel
+                    header.panel-heading
+                        h2.panel-title Thông báo
+                    .panel-body
+                        .modal-wrapper
+                            .modal-text
+                                p Chắc chắn muốn xóa?
+                    footer.panel-footer
+                        .row
+                            .col-md-12.text-right
+                                button#dialogConfirm.btn.btn-primary Có
+                                button#dialogCancel.btn.btn-default Không
+
+
+
+block JS
+    script(src="../assets/app/vendor/jquery-ui/js/jquery-ui-1.10.4.custom.js")
+    script(src="../assets/app/vendor/jquery-ui-touch-punch/jquery.ui.touch-punch.js")
+    script(src="../assets/app/vendor/jquery-appear/jquery.appear.js")
+    script(src="../assets/app/vendor/bootstrap-multiselect/bootstrap-multiselect.js")
+    script(src="../assets/app/vendor/jquery-easypiechart/jquery.easypiechart.js")
+    script(src="../assets/app/vendor/flot/jquery.flot.js")
+    script(src="../assets/app/vendor/flot-tooltip/jquery.flot.tooltip.js")
+    script(src="../assets/app/vendor/flot/jquery.flot.pie.js")
+    script(src="../assets/app/vendor/flot/jquery.flot.categories.js")
+    script(src="../assets/app/vendor/flot/jquery.flot.resize.js")
+    script(src="../assets/app/vendor/jquery-sparkline/jquery.sparkline.js")
+    script(src="../assets/app/vendor/raphael/raphael.js")
+    script(src="../assets/app/vendor/morris/morris.js")
+    script(src="../assets/app/vendor/gauge/gauge.js")
+    script(src="../assets/app/vendor/snap-svg/snap.svg.js")
+    script(src="../assets/app/vendor/liquid-meter/liquid.meter.js")
+    script(src="../assets/app/vendor/jqvmap/jquery.vmap.js")
+    script(src="../assets/app/vendor/jqvmap/data/jquery.vmap.sampledata.js")
+    script(src="../assets/app/vendor/jqvmap/maps/jquery.vmap.world.js")
+    script(src="../assets/app/vendor/jqvmap/maps/continents/jquery.vmap.africa.js")
+    script(src="../assets/app/vendor/jqvmap/maps/continents/jquery.vmap.asia.js")
+    script(src="../assets/app/vendor/jqvmap/maps/continents/jquery.vmap.australia.js")
+    script(src="../assets/app/vendor/jqvmap/maps/continents/jquery.vmap.europe.js")
+    script(src="../assets/app/vendor/jqvmap/maps/continents/jquery.vmap.north-america.js")
+    script(src="../assets/app/vendor/jqvmap/maps/continents/jquery.vmap.south-america.js")
+    script(src="../assets/app/vendor/pnotify/pnotify.custom.js")
+    script(src="../assets/app/vendor/select2/select2.js")
+    script(src="../assets/app/vendor/jquery-datatables/media/js/jquery.dataTables.js")
+    script(src="../assets/app/vendor/jquery-datatables/extras/TableTools/js/dataTables.tableTools.min.js")
+    script(src="../assets/app/vendor/jquery-datatables-bs3/assets/js/datatables.js")
+    script(src="../assets/app/javascripts/edit-inline-order/order-san-pham-ban-chay.js")
+
+    script.
+        $('#datatable-tabletools').editableTableWidget();
+
+block footerJS
+    script(src="../assets/app/javascripts/chinh-sach-ban-hang/examples.chinh-sach-ban-hang.js")
+    script(src="../assets/app/javascripts/quan-ly-san-pham/table-tool-san-pham-ban-chay.js")
+    script(src="../assets/app/javascripts/quan-ly-san-pham/quan-ly-san-pham-ban-chay.js")

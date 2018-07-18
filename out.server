@@ -1,0 +1,84 @@
+[33m[2018-07-13 17:29:48.246] [WARN] [default] - [39mApp: booting
+[32m[2018-07-13 17:29:48.258] [INFO] [default] - [39mApp: listening on 192.168.1.116:1236
+254685855
+[ RowDataPacket {
+    id: '05b0d2b0-7f6c-11e8-9a75-add89177d4b8',
+    name: 'sda',
+    code: null,
+    price: 2342342,
+    quantity: 7.3,
+    product_category_id: '6c7b5f20-7f61-11e8-a6d5-4b04a8feb36f',
+    productcategory_name: 'kkl',
+    product_color: '',
+    product_unit: 'dfdfv' },
+  RowDataPacket {
+    id: '12d8c690-7f5e-11e8-98ab-8f4187ea15c8',
+    name: 'Nhôm 30',
+    code: null,
+    price: 300000,
+    quantity: 13,
+    product_category_id: 'c7510670-79f3-11e8-b734-09e03a32e3d1',
+    productcategory_name: 'Sản Phẩm Chính',
+    product_color: 'Bạc',
+    product_unit: 'Cây' },
+  RowDataPacket {
+    id: '148726a0-80ce-11e8-a336-151498a69ca7',
+    name: 'bù lôn',
+    code: null,
+    price: 4000,
+    quantity: 10.5,
+    product_category_id: '0aed43e0-80ce-11e8-a336-151498a69ca7',
+    productcategory_name: 'Sản phẩm phụ kiện ',
+    product_color: '',
+    product_unit: 'con' },
+  RowDataPacket {
+    id: '782eac00-7f61-11e8-a6d5-4b04a8feb36f',
+    name: 'Bù lôn',
+    code: null,
+    price: 3000,
+    quantity: 10,
+    product_category_id: '6c7b5f20-7f61-11e8-a6d5-4b04a8feb36f',
+    productcategory_name: 'kkl',
+    product_color: '',
+    product_unit: 'con' },
+  RowDataPacket {
+    id: '9afd55a0-7f5d-11e8-98ab-8f4187ea15c8',
+    name: 'Ốc 30',
+    code: null,
+    price: 3000,
+    quantity: 0,
+    product_category_id: 'cea31c10-79f3-11e8-b734-09e03a32e3d1',
+    productcategory_name: 'Sảkkjonm',
+    product_color: '',
+    product_unit: 'con' },
+  RowDataPacket {
+    id: 'a729e8d0-7f6b-11e8-9a75-add89177d4b8',
+    name: 'erea',
+    code: null,
+    price: 213112,
+    quantity: 13,
+    product_category_id: '6c7b5f20-7f61-11e8-a6d5-4b04a8feb36f',
+    productcategory_name: 'kkl',
+    product_color: '',
+    product_unit: 'as' },
+  RowDataPacket {
+    id: 'b519a2b0-8672-11e8-bc7d-317ea8645caf',
+    name: 'sda',
+    code: null,
+    price: 56667,
+    quantity: 0,
+    product_category_id: '0aed43e0-80ce-11e8-a336-151498a69ca7',
+    productcategory_name: 'Sản phẩm phụ kiện ',
+    product_color: '',
+    product_unit: 'cay' } ]
+[0mGET /admin/them-don-hang [32m200 [0m327.626 ms - 19024[0m
+[0mGET /assets/app/vendor/fonts/glyphicons-halflings-regular.woff [33m404 [0m3.692 ms - 38[0m
+[0mPOST /admin/utility/getUsername [32m200 [0m1.317 ms - 134[0m
+RowDataPacket { total: 10 }
+10
+[0mPOST /admin/utility/getUserNotification [32m200 [0m5.094 ms - 4503[0m
+[0mPOST /admin/utility/getUnreadNotification [32m200 [0m11.758 ms - 67[0m
+[0mPOST /admin/utility/getUserRole [32m200 [0m4.763 ms - 931[0m
+[0mPOST /admin/them-don-hang/getAllProduct [32m200 [0m3.399 ms - 1774[0m
+[0mPOST /admin/utility/getUserRole [32m200 [0m5.236 ms - 931[0m
+[0mGET /assets/app/vendor/fonts/glyphicons-halflings-regular.ttf [33m404 [0m2.204 ms - 38[0m

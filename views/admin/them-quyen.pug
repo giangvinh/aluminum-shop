@@ -1,0 +1,172 @@
+extends adminLayout
+block css
+    link(rel="stylesheet" href="../assets/app/vendor/bootstrap/css/bootstrap.css")
+    link(rel="stylesheet" href="../assets/app/vendor/font-awesome/css/font-awesome.css")
+    link(rel="stylesheet" href="../assets/app/vendor/magnific-popup/magnific-popup.css")
+    link(rel="stylesheet" href="../assets/app/vendor/bootstrap-datepicker/css/datepicker3.css")
+    link(rel="stylesheet" href="../assets/app/vendor/pnotify/pnotify.custom.css")
+    link(rel="stylesheet" href="../assets/app/vendor/jquery-ui/css/ui-lightness/jquery-ui-1.10.4.custom.css")
+    link(rel="stylesheet" href="../assets/app/vendor/bootstrap-multiselect/bootstrap-multiselect.css")
+    link(rel="stylesheet" href="../assets/app/vendor/morris/morris.css")
+    link(rel="stylesheet" href="../assets/app/vendor/bootstrap-fileupload/bootstrap-fileupload.min.css")
+    link(rel='stylesheet', href='../assets/app/vendor/jquery-ui/css/ui-lightness/jquery-ui-1.10.4.custom.css')
+    link(rel='stylesheet', href='../assets/app/vendor/select2/select2.css')
+    link(rel='stylesheet', href='../assets/app/vendor/bootstrap-multiselect/bootstrap-multiselect.css')
+    link(rel='stylesheet', href='../assets/app/vendor/bootstrap-tagsinput/bootstrap-tagsinput.css')
+    link(rel='stylesheet', href='../assets/app/vendor/bootstrap-colorpicker/css/bootstrap-colorpicker.css')
+    link(rel='stylesheet', href='../assets/app/vendor/bootstrap-timepicker/css/bootstrap-timepicker.css')
+    link(rel='stylesheet', href='../assets/app/vendor/dropzone/css/basic.css')
+    link(rel='stylesheet', href='../assets/app/vendor/dropzone/css/dropzone.css')
+    link(rel='stylesheet', href='../assets/app/vendor/bootstrap-markdown/css/bootstrap-markdown.min.css')
+    link(rel='stylesheet', href='../assets/app/vendor/summernote/summernote.css')
+    link(rel='stylesheet', href='../assets/app/vendor/summernote/summernote-bs3.css')
+    link(rel='stylesheet', href='../assets/app/vendor/codemirror/lib/codemirror.css')
+    link(rel='stylesheet', href='../assets/app/vendor/codemirror/theme/monokai.css')
+    link(rel='stylesheet', href='../assets/app/vendor/tags-input/tags-input.css')
+    link(rel='stylesheet', href='../assets/app/javascripts/treeview-master/hummingbird-treeview.css')
+
+block info
+    style(type='text/css').
+        .left {
+            float: left;
+        }
+        .search-width {
+            width: 75%;
+        }
+    script.
+        var page_name = "user-page";
+        var page_sub_name="them-quyen";
+
+block header
+    header.page-header
+        h2 Thêm quyền
+        div(class="right-wrapper pull-right")
+            ol.breadcrumbs
+                li
+                    a(href="dashboard")
+                        i(class="fa fa-home")
+
+                li
+                    span Quản lý quyền
+
+                li
+                    span Thêm quyền
+
+            a(class="sidebar-right-toggle" data-open="sidebar-right")
+                i(class="fa fa-chevron-left")
+
+block content
+
+    // start: page
+    .row
+        .col-lg-12
+            section.panel
+                header.panel-heading
+                    .panel-actions
+                        a.panel-action.panel-action-toggle(href='#', data-panel-toggle='')
+                        a.panel-action.panel-action-dismiss(href='#', data-panel-dismiss='')
+                    h2.panel-title Thêm quyền
+                .panel-body
+                    .form-group.need
+                        label.col-md-3.control-label Tên quyền
+                        .col-md-9
+                            input#ip-name.form-control(type='text')
+                    .form-group.need
+                        label.col-md-3.control-label Mô tả
+                        .col-md-9
+                            input#ip-des.form-control(type='text')
+                    .col-md-12
+                        .tabs
+                            ul.nav.nav-tabs
+                                li.active
+                                    a(href='#popular', data-toggle='tab') Thành viên
+                                li
+                                    a(href='#recent', data-toggle='tab') Các tính năng
+                            .tab-content
+                                #popular.tab-pane.active
+                                    .form-group
+                                        label.col-md-3.control-label Sản phẩm được chọn
+                                        .col-md-6
+                                            select#user_select.form-control.populate(data-plugin-selecttwo='')
+                                                option(value="-1" ) Chưa chọn
+                                                -for (var i = 0; i < user_list.length; i++)
+                                                    option(value=user_list[i].id user-id=user_list[i].id) #{user_list[i].user_name}
+                                        .col-md-3
+                                            button.btn.btn-primary( onclick="add_user_admin()") Thêm
+                                    .form-group
+                                        label.col-md-3.control-label Danh sách admin user
+                                        .col-md-9
+                                            .table-responsive
+                                                table.table.mb-none#tb-user
+                                                    thead
+                                                        tr
+                                                            th Username
+                                                            th Hành động
+                                                    tbody
+                                #recent.tab-pane
+                                    .form-group.need
+                                        .col-md-9
+                                            input#search_input.search-width.form-control.left(type='text', placeholder='Search', onclick='this.select()')
+                                            button.btn.btn-default.left#search_button(onclick="search_role()") Tìm kiếm
+                                            ul#search_output.dropdown-menu.h-scroll
+
+
+                                    br
+                                    .form-group#container
+                                        .col-md-12
+                                            #treeview_container.hummingbird-treeview()
+                                                ul#treeview.hummingbird-base
+                                                    each obj in data
+                                                        li
+                                                            i.fa.fa-plus
+                                                            label
+                                                                input( type='checkbox')
+                                                                |  #{obj.master_group}
+                                                            ul
+                                                                each child_group_obj in obj.child_group
+                                                                    li
+                                                                        i.fa.fa-plus
+                                                                        label
+                                                                            input( type='checkbox')
+                                                                            |  #{child_group_obj.name}
+                                                                        ul
+                                                                            each child in child_group_obj.array
+                                                                                li
+                                                                                    label
+                                                                                        input.hummingbird-end-node(data-obj=child type='checkbox')
+                                                                                        |  #{child.name}
+
+
+                footer(class="panel-footer")
+                    div(class="row")
+                        div(class="col-sm-9 col-sm-offset-3")
+                            button.btn.btn-primary.btn-delete(onclick='add()')= "Thêm quyền"
+
+block JS
+    script(src="../assets/app/vendor/jquery-ui/js/jquery-ui-1.10.4.custom.js")
+    script(src="../assets/app/vendor/jquery-ui-touch-punch/jquery.ui.touch-punch.js")
+    script(src="../assets/app/vendor/jquery-appear/jquery.appear.js")
+    script(src="../assets/app/vendor/bootstrap-multiselect/bootstrap-multiselect.js")
+    script(src="../assets/app/vendor/jquery-easypiechart/jquery.easypiechart.js")
+    script(src="../assets/app/vendor/jquery-sparkline/jquery.sparkline.js")
+    script(src="../assets/app/vendor/raphael/raphael.js")
+    script(src="../assets/app/vendor/morris/morris.js")
+    script(src="../assets/app/vendor/gauge/gauge.js")
+    script(src="../assets/app/vendor/snap-svg/snap.svg.js")
+    script(src="../assets/app/vendor/liquid-meter/liquid.meter.js")
+    script(src="../assets/app/vendor/jqvmap/jquery.vmap.js")
+    script(src="../assets/app/vendor/jqvmap/data/jquery.vmap.sampledata.js")
+    script(src="../assets/app/vendor/pnotify/pnotify.custom.js")
+    script(src="../assets/app/vendor/select2/select2.js")
+    script(src="../assets/app/vendor/jquery-datatables/media/js/jquery.dataTables.js")
+    script(src="../assets/app/vendor/jquery-datatables/extras/TableTools/js/dataTables.tableTools.min.js")
+    script(src="../assets/app/vendor/jquery-datatables-bs3/assets/js/datatables.js")
+
+    script(src="../assets/app/vendor/jquery-autosize/jquery.autosize.js")
+    script(src="../assets/app/vendor/bootstrap-fileupload/bootstrap-fileupload.min.js")
+    script(src="../assets/app/vendor/tags-input/tags-input.js")
+    script(src="../assets/app/javascripts/treeview-master/hummingbird-treeview.js")
+block footerJS
+    script.
+        $("#treeview").hummingbird();
+    script(src="../assets/app/javascripts/quan-ly-user-admin/them-quyen.js")

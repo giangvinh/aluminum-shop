@@ -1,0 +1,409 @@
+extends adminLayout
+block css
+    link(rel="stylesheet" href="../assets/app/vendor/bootstrap/css/bootstrap.css")
+
+    link(rel="stylesheet" href="../assets/app/vendor/font-awesome/css/font-awesome.css")
+    link(rel="stylesheet" href="../assets/app/vendor/magnific-popup/magnific-popup.css")
+    link(rel="stylesheet" href="../assets/app/vendor/bootstrap-datepicker/css/datepicker3.css")
+    link(rel="stylesheet" href="../assets/app/vendor/pnotify/pnotify.custom.css")
+    link(rel="stylesheet" href="../assets/app/vendor/jquery-ui/css/ui-lightness/jquery-ui-1.10.4.custom.css")
+    link(rel="stylesheet" href="../assets/app/vendor/bootstrap-multiselect/bootstrap-multiselect.css")
+    link(rel="stylesheet" href="../assets/app/vendor/morris/morris.css")
+    link(rel="stylesheet" href="../assets/app/vendor/bootstrap-fileupload/bootstrap-fileupload.min.css")
+
+
+
+
+    link(rel='stylesheet', href='../assets/app/vendor/jquery-ui/css/ui-lightness/jquery-ui-1.10.4.custom.css')
+    link(rel='stylesheet', href='../assets/app/vendor/select2/select2.css')
+    link(rel='stylesheet', href='../assets/app/vendor/bootstrap-multiselect/bootstrap-multiselect.css')
+    link(rel='stylesheet', href='../assets/app/vendor/bootstrap-tagsinput/bootstrap-tagsinput.css')
+    link(rel='stylesheet', href='../assets/app/vendor/bootstrap-colorpicker/css/bootstrap-colorpicker.css')
+    link(rel='stylesheet', href='../assets/app/vendor/bootstrap-timepicker/css/bootstrap-timepicker.css')
+    link(rel='stylesheet', href='../assets/app/vendor/dropzone/css/basic.css')
+    link(rel='stylesheet', href='../assets/app/vendor/dropzone/css/dropzone.css')
+    link(rel='stylesheet', href='../assets/app/vendor/bootstrap-markdown/css/bootstrap-markdown.min.css')
+    link(rel='stylesheet', href='../assets/app/vendor/summernote/summernote.css')
+    link(rel='stylesheet', href='../assets/app/vendor/summernote/summernote-bs3.css')
+    link(rel='stylesheet', href='../assets/app/vendor/codemirror/lib/codemirror.css')
+    link(rel='stylesheet', href='../assets/app/vendor/codemirror/theme/monokai.css')
+    link(rel='stylesheet', href='../assets/app/vendor/tags-input/tags-input.css')
+
+    link(rel='stylesheet', href='../assets/app/vendor/jquery-ui/css/ui-lightness/jquery-ui-1.10.4.custom.css')
+    link(rel='stylesheet', href='../assets/app/vendor/select2/select2.css')
+    link(rel='stylesheet', href='../assets/app/vendor/bootstrap-multiselect/bootstrap-multiselect.css')
+    link(rel='stylesheet', href='../assets/app/vendor/bootstrap-tagsinput/bootstrap-tagsinput.css')
+    link(rel='stylesheet', href='../assets/app/vendor/bootstrap-colorpicker/css/bootstrap-colorpicker.css')
+    link(rel='stylesheet', href='../assets/app/vendor/bootstrap-timepicker/css/bootstrap-timepicker.css')
+    link(rel='stylesheet', href='../assets/app/vendor/dropzone/css/basic.css')
+    link(rel='stylesheet', href='../assets/app/vendor/dropzone/css/dropzone.css')
+    link(rel='stylesheet', href='../assets/app/vendor/bootstrap-markdown/css/bootstrap-markdown.min.css')
+    link(rel='stylesheet', href='../assets/app/vendor/summernote/summernote.css')
+    link(rel='stylesheet', href='../assets/app/vendor/summernote/summernote-bs3.css')
+    link(rel='stylesheet', href='../assets/app/vendor/codemirror/lib/codemirror.css')
+    link(rel='stylesheet', href='../assets/app/vendor/codemirror/theme/monokai.css')
+
+block info
+    style(type='text/css').
+
+
+    script.
+        var page_name = "sanpham-page";
+        var page_number_child_left_menu = 3;
+
+        var product_id = "!{sanpham.id}";
+        var image_link = "!{sanpham.image}";
+block header
+    header.page-header
+        h2 Sửa sản phẩm
+        div(class="right-wrapper pull-right")
+            ol.breadcrumbs
+                li
+                    a(href="dashboard")
+                        i(class="fa fa-home")
+                li
+                    span Quản lý sản phẩm
+                li
+                    span Sửa sản phẩm
+
+            a(class="sidebar-right-toggle" data-open="sidebar-right")
+                i(class="fa fa-chevron-left")
+
+block content
+
+    // start: page
+    .row
+        .col-lg-12
+            section.panel
+                header.panel-heading
+                    .panel-actions
+                        a.panel-action.panel-action-toggle(href='#', data-panel-toggle='')
+                        a.panel-action.panel-action-dismiss(href='#', data-panel-dismiss='')
+                    h2.panel-title Sửa sản phẩm
+                .panel-body
+                    .form-group
+                        label.col-md-3.control-label Danh mục sản phẩm
+                        .col-md-9
+                            select#product_category_id.form-control.populate(data-plugin-selecttwo='')
+                                -for (var i = 0; i < listDanhmuc.length; i++)
+                                    if sanpham.product_category_id == listDanhmuc[i].id
+                                        option(value=listDanhmuc[i].id selected="true")  #{listDanhmuc[i].name}
+                                    else
+                                        option(value=listDanhmuc[i].id )  #{listDanhmuc[i].name}
+
+                    .form-group
+                        label.col-md-3.control-label Mã sản phẩm
+                        .col-md-9
+                            input#ip-ma-sp.form-control(type='text' value=sanpham.code)
+
+                    .form-group
+                        label.col-md-3.control-label Số lượng sản phẩm đơn vị
+                        .col-md-9
+                            input#ip-sl.form-control(type='number' value=sanpham.quantity)
+
+                    .form-group
+                        label.col-md-3.control-label Hình ảnh (Kích thước tốt nhất: 485w x 550h)
+                        .col-md-9
+                            form(enctype='multipart/form-data')
+                                input#file_to_upload.form-control(type='file' )
+                            img(src='../upload/'+sanpham.image class="image-sample")
+                    .form-group
+                        label.col-md-3.control-label Đơn giá (VNĐ)
+                        .col-md-9
+                            input#ip-price.form-control(type='text'  onkeyup="format_money_and_edit()" value=sanpham.price )
+
+                    .form-group
+                        label.col-md-3.control-label Khối lượng
+                        .col-md-9
+                            input#ip-weight.form-control(type='text' value=sanpham.weight)
+
+                    .form-group
+                        label.col-md-3.control-label Sản phẩm đơn vị
+                        .col-md-9
+                            select#parent_id.form-control.populate(data-plugin-selecttwo='')
+                                option(value="") Không có
+                                -for (var i = 0; i < listSanpham.length; i++)
+                                    if sanpham.parent_id == listSanpham[i].id
+                                        option(value=listSanpham[i].id selected="true") #{listSanpham[i].code} #{listSanpham[i].name}
+                                    else
+                                        option(value=listSanpham[i].id) #{listSanpham[i].code} #{listSanpham[i].name}
+
+                    .form-group
+                        label.col-md-3.control-label Đơn vị tính
+                        .col-md-9
+                            input#ip-unit.form-control(type='text' value=sanpham.unit)
+
+                    .form-group
+                        label.col-md-3.control-label Nhãn
+                        .col-md-9
+                            input#ip-tag.form-control(type='tags' value=sanpham.tags)
+
+                    .form-group
+                        label.col-md-3.control-label Thứ tự sắp xếp
+                        .col-md-9
+                            input#ip-order.form-control(type='number' value=sanpham.sort_order)
+
+                    .form-group(style='display:none;')
+                        label.col-md-3.control-label Quan trọng
+                        .col-md-9
+                            if sanpham.is_important == 1 || sanpham.is_important == "1"
+                                input#ip-important.form-control(type='checkbox' checked)
+                            else
+                                input#ip-important.form-control(type='checkbox' )
+
+                    .form-group(style='display:none;')
+                        label.col-md-3.control-label Loại sản phẩm
+                        .col-md-9
+                            select#ip-type
+                                -for (var i = 0; i < types.length; i++)
+                                    if sanpham.type == types[i].value
+                                        option(value=types[i].value selected="selected") #{types[i].name}
+                                    else
+                                        option(value=types[i].value) #{types[i].name}
+
+                    .col-md-12
+                        .tabs
+                            ul.nav.nav-tabs.nav-justified
+                                li.active
+                                    a.text-center(href='#vi-tab', data-toggle='tab')
+                                        i.fa.fa-star
+                                        |  Việt Nam
+                                li
+                                    a.text-center(href='#en-lab', data-toggle='tab') English
+                            .tab-content
+                                #vi-tab.tab-pane.active
+
+                                    .form-group
+                                        label.col-md-3.control-label Tên sản phẩm
+                                        .col-md-9
+                                            input#ip-name-vi.form-control(type='text' value=sanphamVI.name)
+
+                                    //.form-group
+                                    //    label.col-md-3.control-label Tiêu đề
+                                    //    .col-md-9
+                                    //        input#ip-title-vi.form-control(type='text' value=sanphamVI.title)
+
+                                    .form-group
+                                        label.col-md-3.control-label Mô tả
+                                        .col-md-9
+                                            textarea#ip-des-vi.form-control(rows='', data-plugin-textarea-autosize='' ) #{sanphamVI.description}
+
+                                    .form-group
+                                        label.col-md-3.control-label Meta keywords
+                                        .col-md-9
+                                            input#meta-keyword-vi.form-control(type='text' value=sanphamVI.meta_keywords)
+
+                                    .form-group
+                                        label.col-md-3.control-label Meta description
+                                        .col-md-9
+                                            input#meta-description-vi.form-control(type='text' value=sanphamVI.meta_description)
+
+                                    .form-group
+                                        label.col-md-3.control-label Meta title
+                                        .col-md-9
+                                            input#meta-title-vi.form-control(type='text' value=sanphamVI.meta_title)
+
+                                    .form-group
+                                        label.col-md-3.control-label(id="vi-label" data=sanphamVI.contentHTML) Nội dung HTML
+                                        .col-md-9
+                                            .adjoined-bottom
+                                                .grid-container
+                                                    .grid-width-100#vi_area
+                                                        textarea#editor1(name='editor1', rows='10', cols='80' )
+
+
+                                #en-lab.tab-pane
+                                    .form-group
+                                        label.col-md-3.control-label Tên sản phẩm
+                                        .col-md-9
+                                            input#ip-name-en.form-control(type='text' value=sanphamEN.name)
+
+                                    //.form-group
+                                    //    label.col-md-3.control-label Tiêu đề
+                                    //    .col-md-9
+                                    //        input#ip-title-en.form-control(type='text' value=sanphamEN.title)
+
+                                    .form-group
+                                        label.col-md-3.control-label Mô tả
+                                        .col-md-9
+                                            textarea#ip-des-en.form-control(rows='', data-plugin-textarea-autosize='') #{sanphamEN.description}
+
+
+                                    .form-group
+                                        label.col-md-3.control-label Meta keywords
+                                        .col-md-9
+                                            input#meta-keyword-en.form-control(type='text' value=sanphamEN.meta_keywords)
+
+                                    .form-group
+                                        label.col-md-3.control-label Meta description
+                                        .col-md-9
+                                            input#meta-description-en.form-control(type='text' value=sanphamEN.meta_description)
+
+                                    .form-group
+                                        label.col-md-3.control-label Meta title
+                                        .col-md-9
+                                            input#meta-title-en.form-control(type='text' value=sanphamEN.meta_title)
+
+
+
+                                    .form-group
+                                        label.col-md-3.control-label(id="en-label" data=sanphamEN.contentHTML) Nội dung HTML
+                                        .col-md-9
+                                            .adjoined-bottom
+                                                .grid-container
+                                                    .grid-width-100
+                                                        textarea#editor2(name='editor1', rows='10', cols='80')
+                                                            | #{sanphamEN.contentHTML}
+
+                footer(class="panel-footer")
+                    div(class="row")
+                        div(class="col-sm-9 col-sm-offset-3")
+                            button.btn.btn-primary.btn-delete(onclick='update()')= "Cập nhật thông tin sản phẩm"
+
+
+
+
+    .row
+        .col-lg-12
+            section.panel
+                header.panel-heading
+                    .panel-actions
+                        a.panel-action.panel-action-toggle(href='#', data-panel-toggle='')
+                        a.panel-action.panel-action-dismiss(href='#', data-panel-dismiss='')
+                    h2.panel-title Liên kết sản phẩm
+                .panel-body
+                    .form-group
+                        label.col-md-3.control-label Món ngon
+                        .col-md-6
+                            select#mon_ngon_select.form-control.populate(data-plugin-selecttwo='')
+                                -for (var i = 0; i < monngonList.length; i++)
+                                    option(value=monngonList[i].id) #{monngonList[i].title}
+                        .col-md-3
+                            button.btn.btn-primary( onclick="add()") Thêm
+                    .form-group
+                        label.col-md-3.control-label Danh sách
+                        .col-md-6
+                            .table-responsive
+                                table.table.mb-none#tb-mon-ngon
+                                    thead
+                                        tr
+                                            th Tên
+                                            th Hành động
+                                    tbody
+                                        -for (var i = 0; i < lienketList.length; i++)
+                                            tr(id='monngon'+lienketList[i].id)
+                                                td #{lienketList[i].title}
+                                                td
+                                                    button.btn.btn-primary(onclick='xoa_lien_ket("'+lienketList[i].id+'","'+lienketList[i].title+'","'+lienketList[i].content_id+'")') Xóa
+
+    .row
+        .col-lg-12
+            section.panel
+                header.panel-heading
+                    .panel-actions
+                        a.panel-action.panel-action-toggle(href='#', data-panel-toggle='')
+                        a.panel-action.panel-action-dismiss(href='#', data-panel-dismiss='')
+                    h2.panel-title Danh sách hình ảnh
+                .panel-body
+                    .form-group
+                        label.col-md-3.control-label Hình ảnh (Kích thước tốt nhất: 485w x 550h)
+                        .col-md-9
+                            form(enctype='multipart/form-data')
+                                input#file_to_upload3.form-control(type='file' )
+                            button.btn.btn-primary(onclick='them_hinh()') Thêm
+                    .form-group
+                        label.col-md-3.control-label Danh sách
+                        .col-md-6
+                            .table-responsive
+                                table.table.mb-none#tb-hinh-anh
+                                    thead
+                                        tr
+                                            th Hình ảnh
+                                            th Hành động
+                                    tbody
+                                        -for (var i = 0; i < imageList.length; i++)
+                                            tr(id='hinhanh' + imageList[i].id)
+                                                td
+                                                    img.image-lib(src=address + imageList[i].image)
+                                                td
+                                                    button.btn.btn-primary(onclick='xoa_hinh_anh("' + imageList[i].id + '")') Xóa
+block JS
+
+    script(src="../assets/app/vendor/jquery-ui/js/jquery-ui-1.10.4.custom.js")
+    script(src="../assets/app/vendor/jquery-ui-touch-punch/jquery.ui.touch-punch.js")
+    script(src="../assets/app/vendor/jquery-appear/jquery.appear.js")
+    script(src="../assets/app/vendor/bootstrap-multiselect/bootstrap-multiselect.js")
+    script(src="../assets/app/vendor/jquery-easypiechart/jquery.easypiechart.js")
+    script(src="../assets/app/vendor/flot/jquery.flot.js")
+    script(src="../assets/app/vendor/flot-tooltip/jquery.flot.tooltip.js")
+    script(src="../assets/app/vendor/flot/jquery.flot.pie.js")
+    script(src="../assets/app/vendor/flot/jquery.flot.categories.js")
+    script(src="../assets/app/vendor/flot/jquery.flot.resize.js")
+    script(src="../assets/app/vendor/jquery-sparkline/jquery.sparkline.js")
+    script(src="../assets/app/vendor/raphael/raphael.js")
+    script(src="../assets/app/vendor/morris/morris.js")
+    script(src="../assets/app/vendor/gauge/gauge.js")
+    script(src="../assets/app/vendor/snap-svg/snap.svg.js")
+    script(src="../assets/app/vendor/liquid-meter/liquid.meter.js")
+    script(src="../assets/app/vendor/jqvmap/jquery.vmap.js")
+    script(src="../assets/app/vendor/jqvmap/data/jquery.vmap.sampledata.js")
+    script(src="../assets/app/vendor/jqvmap/maps/jquery.vmap.world.js")
+    script(src="../assets/app/vendor/jqvmap/maps/continents/jquery.vmap.africa.js")
+    script(src="../assets/app/vendor/jqvmap/maps/continents/jquery.vmap.asia.js")
+    script(src="../assets/app/vendor/jqvmap/maps/continents/jquery.vmap.australia.js")
+    script(src="../assets/app/vendor/jqvmap/maps/continents/jquery.vmap.europe.js")
+    script(src="../assets/app/vendor/jqvmap/maps/continents/jquery.vmap.north-america.js")
+    script(src="../assets/app/vendor/jqvmap/maps/continents/jquery.vmap.south-america.js")
+    script(src="../assets/app/vendor/pnotify/pnotify.custom.js")
+    script(src="../assets/app/vendor/select2/select2.js")
+    script(src="../assets/app/vendor/jquery-datatables/media/js/jquery.dataTables.js")
+    script(src="../assets/app/vendor/jquery-datatables/extras/TableTools/js/dataTables.tableTools.min.js")
+    script(src="../assets/app/vendor/jquery-datatables-bs3/assets/js/datatables.js")
+
+    script(src="../assets/app/vendor/jquery-autosize/jquery.autosize.js")
+    script(src="../assets/app/vendor/bootstrap-fileupload/bootstrap-fileupload.min.js")
+
+
+    //select advance
+    script(src='../assets/app/vendor/jquery-ui/js/jquery-ui-1.10.4.custom.js')
+    script(src='../assets/app/vendor/jquery-ui-touch-punch/jquery.ui.touch-punch.js')
+    script(src='../assets/app/vendor/select2/select2.js')
+    script(src='../assets/app/vendor/bootstrap-multiselect/bootstrap-multiselect.js')
+    script(src='../assets/app/vendor/jquery-maskedinput/jquery.maskedinput.js')
+    script(src='../assets/app/vendor/bootstrap-tagsinput/bootstrap-tagsinput.js')
+    script(src='../assets/app/vendor/bootstrap-colorpicker/js/bootstrap-colorpicker.js')
+    script(src='../assets/app/vendor/bootstrap-timepicker/js/bootstrap-timepicker.js')
+    script(src='../assets/app/vendor/fuelux/js/spinner.js')
+    script(src='../assets/app/vendor/dropzone/dropzone.js')
+    script(src='../assets/app/vendor/bootstrap-markdown/js/markdown.js')
+    script(src='../assets/app/vendor/bootstrap-markdown/js/to-markdown.js')
+    script(src='../assets/app/vendor/bootstrap-markdown/js/bootstrap-markdown.js')
+    script(src='../assets/app/vendor/codemirror/lib/codemirror.js')
+    script(src='../assets/app/vendor/codemirror/addon/selection/active-line.js')
+    script(src='../assets/app/vendor/codemirror/addon/edit/matchbrackets.js')
+    script(src='../assets/app/vendor/codemirror/mode/javascript/javascript.js')
+    script(src='../assets/app/vendor/codemirror/mode/xml/xml.js')
+    script(src='../assets/app/vendor/codemirror/mode/htmlmixed/htmlmixed.js')
+    script(src='../assets/app/vendor/codemirror/mode/css/css.js')
+    script(src='../assets/app/vendor/summernote/summernote.js')
+    script(src='../assets/app/vendor/bootstrap-maxlength/bootstrap-maxlength.js')
+    script(src='../assets/app/vendor/ios7-switch/ios7-switch.js')
+    script(src='../assets/app/vendor/bootstrap-confirmation/bootstrap-confirmation.js')
+    script(src="../assets/app/vendor/tags-input/tags-input.js")
+    script(src="../assets/app/javascripts/chinh-sach-ban-hang/examples.chinh-sach-ban-hang.js")
+    script(src="../assets/app/javascripts/forms/examples.advanced.form.js")
+    script.
+        CKEDITOR.replace('editor1', {
+            filebrowserUploadUrl: 'upload-hinh/uploader'
+        });
+        CKEDITOR.replace('editor2', {
+            filebrowserUploadUrl: 'upload-hinh/uploader'
+        });
+    script(src="../assets/app/javascripts/quan-ly-san-pham/sua-san-pham.js")
+
+block footerJS
+    script.
+        jQuery(window).load(function () {
+            format_money_and_edit();
+        });
+

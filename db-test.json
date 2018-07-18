@@ -1,0 +1,9 @@
+{
+    "database_host": "localhost",
+    "database_port": "3306",
+    "database_username": "nhommaitrinh",
+    "database_password": "9ce4582482e6",
+    "database_name": "nhommaitrinh",
+    "listen_port": "1236",
+    "listen_socket": "3700"
+}

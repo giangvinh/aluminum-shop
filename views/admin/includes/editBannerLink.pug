@@ -1,0 +1,547 @@
+mixin editBannerLink(title_page, content_id, showMain, is_chinh_sach_ban_hang, is_edit_chinh_sach_ban_hang)
+    section.panel
+        header.panel-heading
+            .panel-actions
+                a.panel-action.panel-action-toggle(href='#', data-panel-toggle='')
+                a.panel-action.panel-action-dismiss(href='#', data-panel-dismiss='')
+            h2.panel-title #{title_page}
+        .panel-body.form-bordered
+            if !is_chinh_sach_ban_hang && !is_edit_chinh_sach_ban_hang
+                input#ip-content-id.form-control(type='hidden' value='')
+                input#ip-content-entity-code.form-control(type='hidden' value='')
+                .form-group
+                    if showMain
+                        label.col-md-3.control-label Hiện bài viết ở frontend
+                    else
+                        label.col-md-3.control-label Hiện banner ở frontend
+                    .col-md-9
+                        input#ip-show-banner(type='checkbox')
+                .form-group.need
+                    label.col-md-3.control-label Hình ảnh banner (Kích thước tốt nhất: 1920w x 360h)
+                    .col-md-7
+                        form(enctype='multipart/form-data')
+                            input#file_to_upload.form-control(type='file')
+                        img#ip-image-sample(class="image-sample")
+                    .col-md-2
+                        button.btn.btn-primary(onclick='show_image_lib_ori()') Thư viện ảnh
+
+                .form-group
+                    label.col-md-3.control-label Link liên kết banner
+                    .col-md-9
+                        input#ip-link-banner.form-control(type='text' value='')
+                .col-md-12#content_main(style='display:none;')
+                    .tabs
+                        ul.nav.nav-tabs.nav-justified
+                            li.active
+                                a.text-center(href='#vi-tab', data-toggle='tab')
+                                    i.fa.fa-star
+                                    |  Việt Nam
+                            li
+                                a.text-center(href='#en-lab', data-toggle='tab') English
+                        .tab-content
+                            #vi-tab.tab-pane.active
+
+
+                                .form-group.need
+                                    label.col-md-3.control-label#vi-label() Nội dung HTML
+                                    .col-md-9
+                                        .input-group.mb-md.adjoined-bottom
+                                            .grid-container
+                                                .grid-width-100
+                                                    textarea#editor1(name='editor1', rows='10', cols='80' )
+                                        button.input-group.mb-md.btn.btn-default.btn-delete(onclick='review_vi()')= "Xem trước"
+
+                                .form-group
+                                    label.col-md-3.control-label() Thiết lập SEO
+                                    .col-md-9
+                                        .input-group.mb-md#snippet-vi(style="display:none")
+                                        .input-group.mb-md Meta title
+                                        input#meta-title-vi.input-group.mb-md.form-control(type='text' value='')
+                                        .input-group.mb-md Meta keyword
+                                        input#meta-keyword-vi.input-group.mb-md.form-control(type='text' value='')
+                                        .input-group.mb-md Meta description
+                                        input#meta-description-vi.input-group.mb-md.form-control(type='text' value='')
+                                        .input-group.mb-md#output-vi
+                                        .input-group.mb-md#contentOutput-vi(style="display:none")
+                            #en-lab.tab-pane
+
+
+                                .form-group.need
+                                    label.col-md-3.control-label#en-label Nội dung HTML
+                                    .col-md-9
+                                        .input-group.mb-md.adjoined-bottom
+                                            .grid-container
+                                                .grid-width-100
+                                                    textarea#editor2(name='editor1', rows='10', cols='80' )
+                                        button.input-group.mb-md.btn.btn-default.btn-delete(onclick='review_en()')= "Xem trước"
+
+                                .form-group
+                                    label.col-md-3.control-label() Thiết lập SEO
+                                    .col-md-9
+                                        .input-group.mb-md#snippet-en(style="display:none")
+                                        .input-group.mb-md Meta title
+                                        input#meta-title-en.input-group.mb-md.form-control(type='text' value='')
+                                        .input-group.mb-md Meta keyword
+                                        input#meta-keyword-en.input-group.mb-md.form-control(type='text' value='')
+                                        .input-group.mb-md Meta description
+                                        input#meta-description-en.input-group.mb-md.form-control(type='text' value='')
+                                        .input-group.mb-md#output-en
+                                        .input-group.mb-md#contentOutput-en(style="display:none")
+            else if is_chinh_sach_ban_hang
+                input#ip-content-entity-code.form-control(type='hidden' value='')
+                .form-group
+                    label.col-md-3.control-label Link liên kết banner
+                    .col-md-9
+                        input#ip-link-banner.form-control(type='text' value='')
+                .form-group
+                    label.col-md-3.control-label Hình ảnh banner (Kích thước tốt nhất: 1920w x 360h)
+                    .col-md-7
+                        form(enctype='multipart/form-data')
+                            input#file_to_upload.form-control(type='file')
+                        img#image_res.image-sample
+                    .col-md-2
+                        button.btn.btn-primary(onclick='show_image_lib_ori()') Thư viện ảnh
+                .form-group.need
+                    label.col-md-3.control-label Tags
+                    .col-md-9
+                        input#ip-tag.form-control(type='tags')
+
+                .form-group.need
+                    label.col-md-3.control-label Thứ tự sắp xếp
+                    .col-md-9
+                        input#ip-order.form-control(type='number')
+                .col-md-12
+                    .tabs
+                        ul.nav.nav-tabs.nav-justified
+                            li.active
+                                a.text-center(href='#vi-tab', data-toggle='tab')
+                                    i.fa.fa-star
+                                    |  Việt Nam
+                            li
+                                a.text-center(href='#en-lab', data-toggle='tab') English
+                        .tab-content
+                            #vi-tab.tab-pane.active
+
+
+                                .form-group.need
+                                    label.col-md-3.control-label Tiêu đề
+                                    .col-md-9
+                                        input#ip-title-vi.form-control(type='text')
+
+
+                                .form-group.need
+                                    label.col-md-3.control-label Nội dung HTML
+                                    .col-md-9
+                                        .adjoined-bottom
+                                            .grid-container
+                                                .grid-width-100
+                                                    textarea#editor1(name='editor1', rows='10', cols='80')
+                                                        |
+
+                                .form-group
+                                    label.col-md-3.control-label() Thiết lập SEO
+                                    .col-md-9
+                                        .input-group.mb-md#snippet-vi(style="display:none")
+                                        .input-group.mb-md Meta title
+                                        input#meta-title-vi.input-group.mb-md.form-control(type='text' value='')
+                                        .input-group.mb-md Meta keyword
+                                        input#meta-keyword-vi.input-group.mb-md.form-control(type='text' value='')
+                                        .input-group.mb-md Meta description
+                                        input#meta-description-vi.input-group.mb-md.form-control(type='text' value='')
+                                        .input-group.mb-md#output-vi
+                                        .input-group.mb-md#contentOutput-vi(style="display:none")
+
+                            #en-lab.tab-pane
+                                .form-group.need
+                                    label.col-md-3.control-label Tiêu đề
+                                    .col-md-9
+                                        input#ip-title-en.form-control(type='text')
+
+
+                                .form-group.need
+                                    label.col-md-3.control-label Nội dung HTML
+                                    .col-md-9
+                                        .adjoined-bottom
+                                            .grid-container
+                                                .grid-width-100
+                                                    textarea#editor2(name='editor1', rows='10', cols='80')
+                                .form-group
+                                    label.col-md-3.control-label() Thiết lập SEO
+                                    .col-md-9
+                                        .input-group.mb-md#snippet-en(style="display:none")
+                                        .input-group.mb-md Meta title
+                                        input#meta-title-en.input-group.mb-md.form-control(type='text' value='')
+                                        .input-group.mb-md Meta keyword
+                                        input#meta-keyword-en.input-group.mb-md.form-control(type='text' value='')
+                                        .input-group.mb-md Meta description
+                                        input#meta-description-en.input-group.mb-md.form-control(type='text' value='')
+                                        .input-group.mb-md#output-en
+                                        .input-group.mb-md#contentOutput-en(style="display:none")
+            else if is_edit_chinh_sach_ban_hang
+                input#ip-content-entity-code.form-control(type='hidden' value='')
+                .form-group
+                    label.col-md-3.control-label Link liên kết banner
+                    .col-md-9
+                        input#ip-link-banner.form-control(type='text' value='')
+                .form-group
+                    label.col-md-3.control-label Hình ảnh banner (Kích thước tốt nhất: 1920w x 360h)
+                    .col-md-7
+                        form(enctype='multipart/form-data')
+                            input#file_to_upload.form-control(type='file')
+                        if content.image && content.image != ''
+                            img#ip-image-sample(src='../upload/' + content.image class="image-sample")
+                        else
+                            img#ip-image-sample(class="image-sample")
+                    .col-md-2
+                        button.btn.btn-primary(onclick='show_image_lib_ori()') Thư viện ảnh
+                .form-group.need
+                    label.col-md-3.control-label Nhãn
+                    .col-md-9
+                        input#ip-tag.form-control(type='tags' value=content.tags)
+
+                .form-group.need
+                    label.col-md-3.control-label Thứ tự sắp xếp
+                    .col-md-9
+                        input#ip-order.form-control(type='number' value=content.sort_order)
+
+                .col-md-12
+                    .tabs
+                        ul.nav.nav-tabs.nav-justified
+                            li.active
+                                a.text-center(href='#vi-tab', data-toggle='tab')
+                                    i.fa.fa-star
+                                    |  Việt Nam
+                            li
+                                a.text-center(href='#en-lab', data-toggle='tab') English
+                        .tab-content
+                            #vi-tab.tab-pane.active
+
+                                .form-group.need
+                                    label.col-md-3.control-label Tiêu đề
+                                    .col-md-9
+                                        input#ip-title-vi.form-control(type='text' value=contentVI.title)
+
+                                .form-group.need
+                                    label.col-md-3.control-label(id="vi-label") Nội dung HTML
+                                    .col-md-9
+                                        .adjoined-bottom
+                                            .grid-container
+                                                .grid-width-100#vi_area
+                                                    textarea#editor1(name='editor1', rows='10', cols='80' ) #{contentVI.contentHTML}
+
+                                .form-group
+                                    label.col-md-3.control-label() Thiết lập SEO
+                                    .col-md-9
+                                        .input-group.mb-md#snippet-vi(style="display:none")
+                                        .input-group.mb-md Meta title
+                                        input#meta-title-vi.form-control(type='text' value=contentVI.meta_title)
+                                        .input-group.mb-md Meta keyword
+                                        input#meta-keyword-vi.form-control(type='text' value=contentVI.meta_keywords)
+                                        .input-group.mb-md Meta description
+                                        input#meta-description-vi.form-control(type='text' value=contentVI.meta_description)
+                                        .input-group.mb-md#output-vi
+                                        .input-group.mb-md#contentOutput-vi(style="display:none")
+
+                            #en-lab.tab-pane
+                                .form-group.need
+                                    label.col-md-3.control-label Tiêu đề
+                                    .col-md-9
+                                        input#ip-title-en.form-control(type='text' value=contentEN.title)
+
+                                .form-group.need
+                                    label.col-md-3.control-label(id="en-label") Nội dung HTML
+                                    .col-md-9
+                                        .adjoined-bottom
+                                            .grid-container
+                                                .grid-width-100
+                                                    textarea#editor2(name='editor1', rows='10', cols='80') #{contentVI.contentHTML}
+                                .form-group
+                                    label.col-md-3.control-label() Thiết lập SEO
+                                    .col-md-9
+                                        .input-group.mb-md#snippet-en(style="display:none")
+                                        .input-group.mb-md Meta title
+                                        input#meta-title-en.form-control(type='text' value=contentEN.meta_title)
+                                        .input-group.mb-md Meta keyword
+                                        input#meta-keyword-en.form-control(type='text' value=contentEN.meta_keywords)
+                                        .input-group.mb-md Meta description
+                                        input#meta-description-en.form-control(type='text' value=contentEN.meta_description)
+                                        .input-group.mb-md#output-en
+                                        .input-group.mb-md#contentOutput-en(style="display:none")
+
+        footer(class="panel-footer")
+            div(class="row")
+                div(class="col-sm-9 col-sm-offset-3")
+                    if !is_chinh_sach_ban_hang && !is_edit_chinh_sach_ban_hang
+                        button.btn.btn-primary.btn-delete(onclick='uploadFile()')= "Cập nhật"
+                    else if is_chinh_sach_ban_hang
+                        button.btn.btn-primary.btn-delete(onclick='add()')= "Thêm chính sách bán hàng"
+                    else if is_edit_chinh_sach_ban_hang
+                        button.btn.btn-primary.btn-delete(onclick='update()')= "Cập nhật"
+    script.
+        var global_app = null;
+        var global_snippet_preview = null;
+    script(src="../assets/app/vendor/yoast-dev/editContentVI_bundle.js")
+
+    script.
+
+        var image_link = null;
+
+        CKEDITOR.replace('editor1', {
+            filebrowserUploadUrl: 'upload-hinh/uploader'
+        });
+        CKEDITOR.replace('editor2', {
+            filebrowserUploadUrl: 'upload-hinh/uploader'
+        });
+
+        function getContentLanguage(content_id, entity_code, language, callback) {
+            $.ajax({
+                url: "utility/get-language-content",
+                type: "post", //send it through get method
+                data: JSON.stringify({
+                    content_id: content_id,
+                    entity_code: entity_code,
+                    language: language
+                }), contentType: "application/json",
+
+                success: function (response) {
+                    if (response.response_code == "SUCC_EXEC") {
+                        if (response.data != null) {
+                            callback(response.data);
+                        }
+
+                    } else {
+                        new PNotify({
+                            title: 'Thông báo',
+                            text: 'Không thể lấy nội dung ' + response.description,
+                            type: 'error'
+                        });
+                    }
+
+                }
+            });
+        }
+
+        function getBannerContent(content_id) {
+            $.ajax({
+                url: "utility/get-banner-content",
+                type: "post", //send it through get method
+                data: JSON.stringify({
+                    banner_content_id: content_id
+                }), contentType: "application/json",
+
+                success: function (response) {
+                    if (response.response_code == "SUCC_EXEC") {
+                        if (response.data != null) {
+                            image_link = response.data.content_image;
+                            $("#ip-content-id").val(response.data.content_id);
+                            $("#ip-content-entity-code").val(response.data.content_entity_code);
+
+                            $("#ip-image-sample").attr("src", "../upload/"+response.data.content_image);
+                            $("#ip-link-banner").val(response.data.content_link);
+                            $("#ip-show-banner").attr("checked", response.data.content_status > 0);
+
+                            if (#{showMain}) {
+
+                                $("#content_main").css("display", "");
+                                var content_entity_code = response.data.content_entity_code;
+                                getContentLanguage(content_id, content_entity_code, "vi", function (content_data) {
+                                    $("#meta-keyword-vi").val(content_data.meta_keywords);
+                                    $("#meta-description-vi").val(content_data.meta_description);
+                                    $("#meta-title-vi").val(content_data.meta_title);
+                                    CKEDITOR.instances.editor1.setData(content_data.contentHTML);
+                                });
+
+                                getContentLanguage(content_id, content_entity_code, "en", function (content_data) {
+                                    $("#meta-keyword-en").val(content_data.meta_keywords);
+                                    $("#meta-description-en").val(content_data.meta_description);
+                                    $("#meta-title-en").val(content_data.meta_title);
+                                    CKEDITOR.instances.editor2.setData(content_data.contentHTML);
+                                });
+                            }
+
+                        }
+
+                    } else {
+                        new PNotify({
+                            title: 'Thông báo',
+                            text: 'Không thể lấy nội dung ' + response.description,
+                            type: 'error'
+                        });
+                    }
+
+                }
+            });
+        }
+
+        function update(name) {
+            var content_id = $("#ip-content-id").val();
+            var banner_link = $("#ip-link-banner").val();
+            var showBanner = $("#ip-show-banner").prop('checked');
+            $.ajax({
+                url: "utility/update-banner-content",
+                type: "post", //send it through get method
+                data: JSON.stringify({
+                    content_id: content_id,
+                    banner_link: banner_link,
+                    banner_image: name,
+                    show_banner: showBanner ? 1 : 0
+                }), contentType: "application/json",
+
+                success: function (response) {
+                    if (response.response_code == "SUCC_EXEC") {
+                        new PNotify({
+                            title: 'Thông báo',
+                            text: 'Sửa banner thành công',
+                            type: 'success'
+                        });
+                    } else {
+                        new PNotify({
+                            title: 'Thông báo',
+                            text: 'Sửa liên kết thất bại\n' + response.description,
+                            type: 'error'
+                        });
+                    }
+
+                }
+            });
+
+        }
+
+        function uploadFile() {
+
+            if (#{showMain}) {
+                var html_vi = CKEDITOR.instances.editor1.getData();
+                var html_en = CKEDITOR.instances.editor2.getData();
+
+                if (html_vi.length == 0) {
+                    alert("Chưa thêm html tiếng việt");
+                    return;
+                }
+                if (html_en.length == 0) {
+                    html_en = html_vi;
+                    CKEDITOR.instances.editor2.setData(html_vi);
+                }
+
+                var meta_keyword_vi = $("#meta-keyword-vi").val();
+                var meta_description_vi = $("#meta-description-vi").val();
+                var meta_title_vi = $("#meta-title-vi").val();
+                var meta_keyword_en = $("#meta-keyword-en").val();
+                var meta_description_en = $("#meta-description-en").val();
+                var meta_title_en = $("#meta-title-en").val();
+
+
+                if (meta_keyword_vi.length == 0) {
+                    alert("Chưa thêm meta key tiếng việt");
+                    return;
+                }
+                if (meta_description_vi.length == 0) {
+                    alert("Chưa thêm meta description tiếng việt");
+                    return;
+                }
+                if (meta_title_vi.length == 0) {
+                    alert("Chưa thêm meta title tiếng việt");
+                    return;
+                }
+
+                if (meta_keyword_en.length == 0) {
+                    meta_keyword_en = meta_keyword_vi;
+                    $("#meta-keyword-en").val(meta_keyword_vi);
+                }
+                if (meta_description_en.length == 0) {
+                    meta_description_en = meta_description_vi;
+                    $("#meta-description-en").val(meta_description_vi);
+                }
+                if (meta_title_en.length == 0) {
+                    meta_title_en = meta_title_vi;
+                    $("#meta-title-en").val(meta_title_vi);
+                }
+
+                var content_entity_code =  $("#ip-content-entity-code").val();
+
+                $.ajax({
+                    url: "utility/update-main-content",
+                    type: "post", //send it through get method
+                    data: JSON.stringify({
+                        meta_title_vi: meta_title_vi,
+                        meta_description_vi: meta_description_vi,
+                        meta_keyword_vi: meta_keyword_vi,
+                        meta_description_en: meta_description_en,
+                        meta_keyword_en: meta_keyword_en,
+                        meta_title_en: meta_title_en,
+                        html_vi: html_vi,
+                        html_en: html_en,
+                        entity_code: content_entity_code,
+                        id: '#{content_id}'
+                    }), contentType: "application/json",
+
+                    success: function (response) {
+                        if (response.response_code == "SUCC_EXEC") {
+                            // nothing
+
+                        } else {
+                            new PNotify({
+                                title: 'Thông báo',
+                                text: 'Sửa nội dung thất bại\n' + response.description,
+                                type: 'error'
+                            });
+                        }
+
+                    }
+                });
+            }
+            if ($("#file_to_upload").val() != "") {
+                var file_data = $('#file_to_upload').prop('files')[0];
+                var form_data = new FormData();
+
+                form_data.append('file', file_data);
+
+                $.ajax({
+                    url: 'upload-hinh/', // point to server-side PHP script
+                    dataType: 'text',  // what to expect back from the PHP script, if anything
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    data: form_data,
+                    type: 'post',
+                    success: function (data) {
+                        // get server responce here
+                        data = JSON.parse(data);
+                        // clear file field
+                        $("#file_to_upload").val("");
+                        if (data.response_code == "SUCC_EXEC") {
+                            var url = data.data;
+                            $("#ip-image-sample").attr("src", '../upload/' + url);
+                            update(url);
+                        } else {
+                            new PNotify({
+                                title: 'Thông báo',
+                                text: 'upload hình ảnh thất bại',
+                                type: 'error'
+                            });
+                        }
+                    }
+                });
+            }
+            else if (image_link && image_link.length > 0) {
+                update(image_link);
+            } else {
+                alert("chưa chọn hình");
+            }
+        }
+
+        $(document).on('click', '.modal-confirm', function (e) {
+            e.preventDefault();
+            $.magnificPopup.close();
+            var name = $(".image-lib.has-border").attr("image-name");
+            var url = $(".image-lib.has-border").attr("image-url");
+            if (name && name.length > 0 && url && url.length > 0) {
+                image_link = name;
+                $('#ip-image-sample').attr("src", url);
+                $('.image-lib').removeClass("has-border");
+            }
+        });
+
+
+
+        getBannerContent('#{content_id}');
+

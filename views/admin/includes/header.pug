@@ -1,0 +1,58 @@
+
+header.header
+    div.logo-container
+        a(href='#' class='logo')
+            img(src='../assets/app/images/logo.png' height='35' alt='Porto Admin')
+        div(class='visible-xs toggle-sidebar-left' data-toggle-class='sidebar-left-opened' data-target='html' data-fire-event="sidebar-left-opened")
+            i(class='fa fa-bars' aria-label='Toggle sidebar')
+    div.header-right
+        //form(action='pages-search-results.html' class='search nav-form')
+        //    div.input-group.input-search
+        //        input(type='text' class='form-control' name='q' id='q' placeholder='Từ khoá tìm kiếm...')
+        //        span.input-group-btn
+        //            button(class='btn btn-default' type='submit')
+        //            i(class='fa fa-search')
+        span.separator.hide
+        ul.notifications.hide
+            li
+                a(href='#' class='dropdown-toggle notification-icon' data-toggle='dropdown' onclick="seenNotifications()").hide
+                    i(class='fa fa-bell')
+                    span.badge#notification-span(style="display: none;") 0
+                div(class='dropdown-menu notification-menu')
+                    div.notification-title.hide
+                        span#notification-span1(class="pull-right label label-default" style="display: none;") 0
+                        | Thông báo
+                    div.content
+                        ul#ul-notification
+                            li
+                                a.clearfix(href='#')
+                                    .image
+                                        i.bg-danger
+                                    span.title Server is Down!
+                                    span.message Just now
+                        hr
+                        div.text-right
+                            a(href='notification' class='view-more') Xem tất cả
+        span.separator.hide
+        div(id='userbox' class='userbox')
+            a(href='#' data-toggle='dropdown')
+                //figure.profile-picture
+                //    img(src='../assets/app/images/!logged-user.jpg' alt='Joseph Doe' class='img-circle' data-lock-picture='../assets/app/images/!logged-user.jpg')
+                div(class='profile-info' data-lock-name='John Doe' data-lock-email='username')
+                    span.name#logged_username username
+                    //if is_admin
+                    //    span.role Admin
+                    //else
+                    //    span.role Người dùng thông thường
+                i(class='fa custom-caret')
+            div.dropdown-menu
+                ul.list-unstyled
+                    li.divider
+                    //li
+                    //    a(role='menuitem' tabindex='-1' href='pages-user-profile.html') <i class="fa fa-user"></i> My Profile
+                    //li
+                    //    a(role='menuitem' tabindex='-1' href='#' data-lock-screen='true') <i class="fa fa-lock"></i> Lock Screen
+                    li
+                        a(role='menuitem' tabindex='-1' onclick='log_out()' ) <i class="fa fa-power-off"></i> Đăng xuất
+    // end: search & user box
+// end: header

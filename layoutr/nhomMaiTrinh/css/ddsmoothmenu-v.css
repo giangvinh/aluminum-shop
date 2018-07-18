@@ -1,0 +1,54 @@
+.ddsmoothmenu-v ul{
+width:100%;
+float:left;
+
+}
+ 
+.ddsmoothmenu-v ul li{
+position: relative;
+width:100%;
+float:left;
+background:url(../images/li_shadow.png) repeat-x top;
+border-bottom:1px solid  #e6e6e6;
+}
+
+/* Top level menu links style */
+.ddsmoothmenu-v ul li a{
+	width:100%;
+	float:left;
+	padding:10px 5px 10px 34px;
+	text-decoration:none;
+	font-size:14px;
+	background:url(../images/muiten.png) no-repeat 20px 17px;
+	color:#585858;
+	
+}
+.ddsmoothmenu-v ul li:last-child{ border-bottom:none;}
+
+.ddsmoothmenu-v ul li a:link, .ddsmoothmenu-v ul li a:visited, .ddsmoothmenu-v ul li a:active{
+	color:#585858;
+}
+
+
+.ddsmoothmenu-v ul li a.selected,.ddsmoothmenu-v ul li a:hover{
+	color:#FF0000;
+}
+
+/*Sub level menu items */
+.ddsmoothmenu-v ul li ul{
+position: absolute;
+width: 240px; /*Sub Menu Items width */
+top: 0;
+font-weight: normal;
+visibility: hidden;
+background:rgba(255,255,255,1);
+margin:0px;
+padding:0px;
+margin-left:1px;
+}
+
+ 
+/* Holly Hack for IE \*/
+* html .ddsmoothmenu-v ul li { float: left; height: 1%; }
+* html .ddsmoothmenu-v ul li a { height: 1%; }
+/* End */

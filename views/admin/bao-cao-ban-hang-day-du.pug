@@ -1,0 +1,143 @@
+extends adminLayout
+block css
+    link(rel="stylesheet" href="../assets/app/vendor/bootstrap/css/bootstrap.css")
+    link(rel="stylesheet" href="../assets/app/vendor/font-awesome/css/font-awesome.css")
+    link(rel="stylesheet" href="../assets/app/vendor/magnific-popup/magnific-popup.css")
+    link(rel="stylesheet" href="../assets/app/vendor/bootstrap-datepicker/css/datepicker3.css")
+    link(rel="stylesheet" href="../assets/app/vendor/pnotify/pnotify.custom.css")
+    link(rel="stylesheet" href="../assets/app/vendor/jquery-ui/css/ui-lightness/jquery-ui-1.10.4.custom.css")
+    link(rel="stylesheet" href="../assets/app/vendor/bootstrap-multiselect/bootstrap-multiselect.css")
+    link(rel="stylesheet" href="../assets/app/vendor/morris/morris.css")
+    link(rel="stylesheet" href="../assets/app/vendor/select2/select2.css")
+    link(rel="stylesheet" href="../assets/app/vendor/jquery-datatables-bs3/assets/css/datatables.css")
+    link(rel='stylesheet', href='../assets/app/vendor/daterangepicker/daterangepicker.css')
+
+block info
+    style(type='text/css').
+        .hide {
+            display: none;
+        }
+    script.
+        var page_name = "statics-page";
+        var page_sub_name="bao-cao-ban-hang-day-du";
+
+block header
+    include includes/headerCustom
+    +headerCustom(
+    "Báo cáo bán hàng đầy đủ",
+    "Báo cáo")
+
+
+block content
+
+    // start: page
+    section.panel
+
+        header(class="panel-heading")
+            div(class="panel-actions")
+                a(href="#" class="panel-action panel-action-toggle" data-panel-toggle)
+                a(href="#" class="panel-action panel-action-dismiss" data-panel-dismiss)
+
+        div.panel-body.form-bordered
+            .form-group.need
+                label.col-md-3.control-label() Thời gian báo cáo
+                .col-md-6
+                    select.input-group.mb-md#select-date.form-control.populate(data-plugin-selecttwo='' onchange="change_sort()")
+                        option(value="1") 30 ngày gần đây
+                        option(value="2") Tùy chọn
+                    .input-group.mb-md.hide#date
+                        span.input-group-addon
+                            i.fa.fa-calendar
+                        input.form-control#ip-begin-date(type='text', name='start')
+            .form-group.need
+                label.col-md-2.control-label() Báo cáo theo
+                .col-md-6
+                    select#select-sort.form-control.populate(data-plugin-selecttwo='' onchange="type_sort()")
+                        option(value="1") Từng sản phẩm
+                        option(value="2") Từng khách hàng
+                        option(value="3") Từng đơn hàng
+
+            button.btn.btn-primary#btt-thongke(onclick='change_sort()') Báo cáo bán hàng đầy đủ
+
+
+
+
+
+            div.hide#person
+                table.table.table-bordered.table-striped.mb-none#table-person()
+                    thead
+                        tr
+                            th Tên khách hàng
+                            th Email
+                            th Số lượng sản phẩm
+                            th Thành tiền
+                    tbody
+
+
+            div#product
+                table.table.table-bordered.table-striped.mb-none#table-product()
+                    thead
+                        tr
+                            th Mã sản phẩm
+                            th Tên sản phẩm
+                            th Loại sản phẩm
+                            th Số lượng tồn kho đầu kỳ
+                            th Số lượng tồn kho cuối kỳ
+                            th Số lượng bán ra
+                            th Doanh số
+
+                    tbody
+            div.hide#order
+                table.table.table-bordered.table-striped.mb-none#table-order()
+                    thead
+                        tr
+                            th Mã đơn hàng
+                            th Tên khách hàng
+                            th Địa chỉ
+                            th Thành tiền
+                    tbody
+
+
+
+
+
+block JS
+    script(src="../assets/app/vendor/jquery-ui/js/jquery-ui-1.10.4.custom.js")
+    script(src="../assets/app/vendor/jquery-ui-touch-punch/jquery.ui.touch-punch.js")
+    script(src="../assets/app/vendor/jquery-appear/jquery.appear.js")
+    script(src="../assets/app/vendor/bootstrap-multiselect/bootstrap-multiselect.js")
+    script(src="../assets/app/vendor/jquery-easypiechart/jquery.easypiechart.js")
+    script(src="../assets/app/vendor/flot/jquery.flot.js")
+    script(src="../assets/app/vendor/flot-tooltip/jquery.flot.tooltip.js")
+    script(src="../assets/app/vendor/flot/jquery.flot.pie.js")
+    script(src="../assets/app/vendor/flot/jquery.flot.categories.js")
+    script(src="../assets/app/vendor/flot/jquery.flot.resize.js")
+    script(src="../assets/app/vendor/jquery-sparkline/jquery.sparkline.js")
+    script(src="../assets/app/vendor/raphael/raphael.js")
+    script(src="../assets/app/vendor/morris/morris.js")
+    script(src="../assets/app/vendor/gauge/gauge.js")
+    script(src="../assets/app/vendor/snap-svg/snap.svg.js")
+    script(src="../assets/app/vendor/liquid-meter/liquid.meter.js")
+    script(src="../assets/app/vendor/jqvmap/jquery.vmap.js")
+    script(src="../assets/app/vendor/jqvmap/data/jquery.vmap.sampledata.js")
+    script(src="../assets/app/vendor/jqvmap/maps/jquery.vmap.world.js")
+    script(src="../assets/app/vendor/jqvmap/maps/continents/jquery.vmap.africa.js")
+    script(src="../assets/app/vendor/jqvmap/maps/continents/jquery.vmap.asia.js")
+    script(src="../assets/app/vendor/jqvmap/maps/continents/jquery.vmap.australia.js")
+    script(src="../assets/app/vendor/jqvmap/maps/continents/jquery.vmap.europe.js")
+    script(src="../assets/app/vendor/jqvmap/maps/continents/jquery.vmap.north-america.js")
+    script(src="../assets/app/vendor/jqvmap/maps/continents/jquery.vmap.south-america.js")
+    script(src="../assets/app/vendor/pnotify/pnotify.custom.js")
+    script(src="../assets/app/vendor/select2/select2.js")
+    script(src="../assets/app/vendor/jquery-datatables/media/js/jquery.dataTables.js")
+    script(src="../assets/app/vendor/jquery-datatables/extras/TableTools/js/dataTables.tableTools.min.js")
+    script(src="../assets/app/vendor/jquery-datatables-bs3/assets/js/datatables.js")
+    script(src='../assets/app/vendor/daterangepicker/moment.min.js')
+    script(src='../assets/app/vendor/daterangepicker/daterangepicker.js')
+    script(src='../js/Chart.min.js')
+
+
+block footerJS
+    script(src="../assets/app/javascripts/bao-cao/bao-cao-ban-hang-day-du.js")
+
+

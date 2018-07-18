@@ -1,0 +1,26 @@
+/* Add here all your CSS customizations */
+.image-sample {
+    max-width: 300px;
+    max-height: 200px;
+}
+
+.hide {
+    display: none;
+}
+.image-lib {
+    padding: 7px;
+    max-width: 120px;
+    max-height: 200px;
+}
+#body-modal {
+    height: 400px;
+    overflow: scroll;
+}
+.has-border {
+    border: 1px solid red;
+}
+.need label:after {
+    color: #e32;
+    content: ' *';
+    display:inline;
+}

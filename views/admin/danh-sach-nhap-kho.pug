@@ -1,0 +1,280 @@
+extends adminLayout
+block css
+    link(rel="stylesheet" href="../assets/app/vendor/bootstrap/css/bootstrap.css")
+
+    link(rel="stylesheet" href="../assets/app/vendor/font-awesome/css/font-awesome.css")
+    link(rel="stylesheet" href="../assets/app/vendor/magnific-popup/magnific-popup.css")
+    link(rel="stylesheet" href="../assets/app/vendor/bootstrap-datepicker/css/datepicker3.css")
+    link(rel="stylesheet" href="../assets/app/vendor/pnotify/pnotify.custom.css")
+    link(rel="stylesheet" href="../assets/app/vendor/jquery-ui/css/ui-lightness/jquery-ui-1.10.4.custom.css")
+    link(rel="stylesheet" href="../assets/app/vendor/bootstrap-multiselect/bootstrap-multiselect.css")
+    link(rel="stylesheet" href="../assets/app/vendor/morris/morris.css")
+    link(rel="stylesheet" href="../assets/app/vendor/select2/select2.css")
+    link(rel="stylesheet" href="../assets/app/vendor/jquery-datatables-bs3/assets/css/datatables.css")
+
+block info
+    script.
+        var page_name = "warehouse-page";
+        var page_sub_name="danh-sach-nhap-kho";
+        var global_array = !{JSON.stringify(data)}
+
+        function plus(product_code, quantity, warehouse_history_type) {
+            $.ajax({
+                url: "danh-sach-nhap-kho/plus",
+                type: "post", //send it through get method
+                data: JSON.stringify({
+                    product_code: product_code,
+                    quantity: quantity,
+                    warehouse_history_type: warehouse_history_type
+                }), contentType: "application/json",
+
+                success: function (response) {
+                    if (response.response_code == "SUCC_EXEC") {
+                        new PNotify({
+                            title: 'Thông báo',
+                            text: 'Import mã sản phẩm [' + product_code + "] thành công",
+                            type: 'success'
+                        });
+
+                        var table = $('#datatable-tabletools').DataTable();
+
+                        var temp = table.row("#row"+product_code).data();
+                        temp[2] = response.data;
+                        table.row("#row"+product_code).data(temp).invalidate();
+
+                    } else {
+                        new PNotify({
+                            title: 'Thông báo',
+                            text: 'Import mã sản phẩm [' + product_code + "] thất bại\n" + response.description,
+                            type: 'error'
+                        });
+                    }
+                    document.getElementById("csvfile").value = "";
+
+                },
+                error: function (xhr) {
+                    //Do Something to handle error
+                    new PNotify({
+                        title: 'Thông báo',
+                        text: 'Import dữ liệu thất bại',
+                        type: 'error'
+                    });
+                    document.getElementById("csvfile").value = "";
+                }
+            });
+        }
+
+        function fnExcelReport() {
+            var tab_text = "<table border='2px'><tr bgcolor='#87AFC6'>";
+            var textRange;
+            var j = 0;
+            tab = document.getElementById('headerTable'); // id of table
+
+            for (j = 0; j < tab.rows.length; j++) {
+                tab_text = tab_text + tab.rows[j].innerHTML + "</tr>";
+                //tab_text=tab_text+"</tr>";
+            }
+
+            tab_text = tab_text + "</table>";
+            tab_text = tab_text.replace(/<A[^>]*>|<\/A>/g, "");//remove if u want links in your table
+            tab_text = tab_text.replace(/<img[^>]*>/gi, ""); // remove if u want images in your table
+            tab_text = tab_text.replace(/<input[^>]*>|<\/input>/gi, ""); // reomves input params
+
+            var ua = window.navigator.userAgent;
+            var msie = ua.indexOf("MSIE ");
+
+            if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))      // If Internet Explorer
+            {
+                txtArea1.document.open("txt/html", "replace");
+                txtArea1.document.write(tab_text);
+                txtArea1.document.close();
+                txtArea1.focus();
+                sa = txtArea1.document.execCommand("SaveAs", true, "Say Thanks to Sumit.xls");
+            }
+            else                 //other browser not tested on IE 11
+                sa = window.open('data:application/vnd.ms-excel,' + encodeURIComponent(tab_text));
+
+            return (sa);
+        }
+
+        function ExportData() {
+
+            var table = $('#datatable-tabletools').DataTable();
+            var data = table
+                .rows()
+                .data();
+
+            const rows = [["Mã sản phẩm",
+                "Tên sản phẩm",
+                "Số lượng tồn kho hiện có",
+                "Số lượng nhập/xuất kho (chỉnh sửa được)"]];
+            for (var index = 0; index < data.length; index++) {
+                var row = data[index];
+                row.push(0);
+                rows.push(row);
+            }
+
+            let csvContent = "";
+            rows.forEach(function (rowArray) {
+                let row = rowArray.join(",");
+                csvContent += row + "\r\n";
+            });
+            var encodedUri = "data:text/csv;charset=utf-8," + '\uFEFF' + encodeURIComponent(csvContent);
+            var link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "data_kho.csv");
+            link.innerHTML = "Click Here to download";
+            document.body.appendChild(link); // Required for FF
+
+            link.click(); // This will download the data file named "my_data.csv".
+        }
+
+        function ImportToTable() {
+            var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.csv)$/;
+            //Checks whether the file is a valid csv file
+            if (regex.test($("#csvfile").val().toLowerCase())) {
+                //Checks whether the browser supports HTML5
+                if (typeof (FileReader) != "undefined") {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+
+                        var fileData = reader.result;
+                        var wb = XLSX.read(fileData, {type: 'binary'});
+
+                        wb.SheetNames.forEach(function (sheetName) {
+                            var rowObj = XLSX.utils.sheet_to_row_object_array(wb.Sheets[sheetName]);
+
+                            var maps = [];
+                            for (var i = 0; i < rowObj.length; i++) {
+                                var product_code = rowObj[i]["Mã sản phẩm"];
+                                var product_name = rowObj[i]["Tên sản phẩm"];
+                                var repository = rowObj[i]["Số lượng tồn kho hiện có"];
+                                var quantity = rowObj[i]["Số lượng nhập/xuất kho (chỉnh sửa được)"];
+
+                                var notFound = true;
+                                for (var j = 0; j < maps.length; j++) {
+                                    if (product_code == maps[j].code) {
+                                        maps[j].quantity += parseFloat(quantity);
+                                        notFound = false;
+                                        break;
+                                    }
+                                }
+                                if (notFound) {
+                                    maps.push({
+                                        code: product_code,
+                                        quantity: parseFloat(quantity)
+                                    });
+                                }
+
+                            }
+                            for (var j = 0; j < maps.length; j++) {
+                                if (maps[j].quantity == 0) {
+                                    continue;
+                                }
+                                plus(maps[j].code, maps[j].quantity, 2);
+                            }
+
+
+                            $('#csvtable').show();
+                            $("#csvfile").val("");
+                            var jsonObj = JSON.stringify(rowObj);
+                            console.log(jsonObj);
+                        });
+
+
+
+                        //Splitting of Rows in the csv file
+
+                    }
+                    reader.readAsText($("#csvfile")[0].files[0]);
+                }
+                else {
+                    alert("Web browser này không hỗ trợ HTML5.");
+                }
+            }
+            else {
+                alert("hãy chọn đúng loại file CSV");
+            }
+        }
+
+
+
+block header
+    header.page-header
+        h2 Kho hàng
+        div(class="right-wrapper pull-right")
+            ol.breadcrumbs
+                li
+                    a(href="dashboard")
+                        i(class="fa fa-home")
+                li
+                    span Quản lý kho
+                li
+                    span Kho hàng
+
+            a(class="sidebar-right-toggle" data-open="sidebar-right")
+                i(class="fa fa-chevron-left")
+
+block content
+
+    // start: page
+    section.panel
+
+        header(class="panel-heading")
+            div(class="panel-actions")
+                a(href="#" class="panel-action panel-action-toggle" data-panel-toggle)
+                a(href="#" class="panel-action panel-action-dismiss" data-panel-dismiss)
+
+            h2.panel-title Kho hàng
+
+        div.panel-body
+
+            label.hide Import tập tin excel nhập/xuất kho:
+                input(type="file" id="csvfile")
+            button.hide(type="button" class="mb-xs mt-xs mr-xs btn btn-primary" onclick="ImportToTable()") Upload
+
+            button.hide(type="button" class="text-right btn btn-primary" onclick="ExportData()") Xuất tập tin mẫu
+
+            br
+
+            table.table.table-bordered.table-striped.mb-none#datatable-tabletools
+                thead
+                    tr
+                        th Mã sản phẩm
+                        th Tên sản phẩm
+                        th Số lượng còn trong kho
+                        th Nhập / xuất kho
+
+                tbody
+                    each obj in data
+                        tr.gradeX(id="row"+obj.code)
+                            td #{obj.code}
+                            td #{obj.name}
+                            td.quantity #{obj.quantity ? obj.quantity : 0}
+                            td.canEdit(data-code=obj.code)
+
+
+
+
+
+block JS
+    script(src="../assets/app/vendor/jquery-ui/js/jquery-ui-1.10.4.custom.js")
+    script(src="../assets/app/vendor/jquery-ui-touch-punch/jquery.ui.touch-punch.js")
+    script(src="../assets/app/vendor/jquery-appear/jquery.appear.js")
+    script(src="../assets/app/vendor/bootstrap-multiselect/bootstrap-multiselect.js")
+    script(src="../assets/app/vendor/pnotify/pnotify.custom.js")
+    script(src="../assets/app/vendor/select2/select2.js")
+    script(src="../assets/app/vendor/jquery-datatables/media/js/jquery.dataTables.js")
+    script(src="../assets/app/vendor/jquery-datatables/extras/TableTools/js/dataTables.tableTools.js")
+    script(src="../assets/app/vendor/jquery-datatables-bs3/assets/js/datatables.js")
+    //script(src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/xlsx.js")
+    //script(src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/jszip.js")
+    //script(src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.10.8/xlsx.full.min.js")
+    //script(src="https://cdn.ckeditor.com/4.8.0/full-all/ckeditor.js")
+
+
+block footerJS
+    script(src="../assets/app/javascripts/quan-ly-nhap-hang/danh-sach-nhap-hang.js")
+
+    script.
+        $('#datatable-tabletools').editableTableWidget();

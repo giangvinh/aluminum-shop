@@ -1,0 +1,31 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+@font-face {
+    font-family: 'UTMHelve'; 
+    src: url('font/UTMHelve/UTMHelve.eot');
+    src: url('font/UTMHelve/UTMHelve.eot') format('embedded-opentype'),
+         url('font/UTMHelve/UTMHelve.woff2') format('woff2'),
+         url('font/UTMHelve/UTMHelve.woff') format('woff'),
+         url('font/UTMHelve/UTMHelve.ttf') format('truetype'),
+         url('font/UTMHelve/UTMHelve.svg#UTMHelve') format('svg');
+}
+@font-face {
+    font-family: 'UTMHelveBold'; 
+    src: url('font/UTMHelveBold/UTMHelveBold.eot');
+    src: url('font/UTMHelveBold/UTMHelveBold.eot') format('embedded-opentype'),
+         url('font/UTMHelveBold/UTMHelveBold.woff2') format('woff2'),
+         url('font/UTMHelveBold/UTMHelveBold.woff') format('woff'),
+         url('font/UTMHelveBold/UTMHelveBold.ttf') format('truetype'),
+         url('font/UTMHelveBold/UTMHelveBold.svg#UTMHelveBold') format('svg');
+}
+@font-face {
+    font-family: 'UTMAndrogyne'; 
+    src: url('font/UTMAndrogyne/UTMAndrogyne.eot');
+    src: url('font/UTMAndrogyne/UTMAndrogyne.eot') format('embedded-opentype'),
+         url('font/UTMAndrogyne/UTMAndrogyne.woff2') format('woff2'),
+         url('font/UTMAndrogyne/UTMAndrogyne.woff') format('woff'),
+         url('font/UTMAndrogyne/UTMAndrogyne.ttf') format('truetype'),
+         url('font/UTMAndrogyne/UTMAndrogyne.svg#UTMAndrogyne') format('svg');
+}

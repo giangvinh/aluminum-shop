@@ -1,0 +1,5 @@
+{
+    "env": "test",
+    "db_config_name": "db-test.json",
+    "log_level": "DEBUG"
+}

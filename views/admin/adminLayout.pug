@@ -1,0 +1,144 @@
+doctype html
+
+html(class="fixed")
+    head
+        // Basic
+        meta(charset='UTF-8')
+
+        title Trang quản lý - Nhôm Mai Trinh
+        meta(name="keywords", content="Nhôm Mai Trinh")
+        meta(name="description", content="Trang quản lý - Nhôm Mai Trinh")
+        meta(name="author", content="Thien, Au Vinh")
+        meta(http-equiv="content-type" content="application/vnd.ms-excel; charset=UTF-8")
+        // Mobile Metas
+        //meta(name="viewport", content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no")
+
+        // Web Fonts
+        //link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light')
+
+        // Vendor CSS
+        link(rel='stylesheet', href='../assets/app/vendor/bootstrap/css/bootstrap.css')
+
+        link(rel='stylesheet', href='../assets/app/vendor/font-awesome/css/font-awesome.css')
+        link(rel='stylesheet', href='../assets/app/vendor/magnific-popup/magnific-popup.css')
+        link(rel='stylesheet', href='../assets/app/vendor/bootstrap-datepicker/css/datepicker3.css')
+        link(rel='stylesheet', href='../assets/app/vendor/yoast-dev/yoast-seo.min.css')
+        link(rel="stylesheet", href='../assets/app/css/utility.css')
+        link(rel="stylesheet", href='../assets/app/css/print.css', type="text/css", media="print")
+
+        block css
+        // Theme CSS
+        link(rel='stylesheet', href='../assets/app/stylesheets/theme.css')
+
+        // Skin CSS
+        link(rel='stylesheet', href='../assets/app/stylesheets/skins/default.css')
+
+        // Theme Custom CSS
+        link(rel='stylesheet', href='../assets/app/stylesheets/theme-custom.css')
+
+        // Head Libs
+        script(src="../assets/app/vendor/modernizr/modernizr.js")
+        script.
+            var image_lib_name = null;
+            var image_lib_url = null;
+
+            function format_money(number) {
+                // var a = new Intl.NumberFormat().format(number);
+                // return a;
+                if(number) {
+                    return number.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+                }else {
+                    return 0;
+                }
+            }
+
+            function format_money_and_edit(e) {
+                var number = e.value;
+                if (number == "") return;
+                number = revert_money_to_normal(number);
+                number = format_money(number);
+                e.value = number;
+            }
+
+            function revert_money_to_normal(number) {
+                // var a = new Intl.NumberFormat().format(number);
+                // return a;
+
+                number = number.replace(/[^0-9 ]/g, "");
+                return number;
+            }
+
+    body()
+
+        script(src="../assets/app/vendor/jquery/jquery.js")
+        script(src="../assets/app/javascripts/ckeditor/ckeditor.js")
+
+        block info
+        include includes/innerWrapper
+        //include includes/sidebarRight
+
+
+        // Vendor
+        script(src="../assets/app/vendor/jquery-browser-mobile/jquery.browser.mobile.js")
+        script(src="../assets/app/vendor/bootstrap/js/bootstrap.js")
+        script(src="../assets/app/vendor/nanoscroller/nanoscroller.js")
+        script(src="../assets/app/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js")
+        script(src="../assets/app/vendor/magnific-popup/magnific-popup.js")
+        script(src="../assets/app/vendor/jquery-placeholder/jquery.placeholder.js")
+        script(src="../assets/app/vendor/fullcalendar/lib/moment.min.js")
+        script(src='../assets/app/vendor/socket.io-client/dist/socket.io.js')
+        script(src="../assets/app//vendor/tags-input/tags-input.js")
+        script(src="../assets/app/javascripts/layout.js")
+
+        //modal image gallery
+        a.hide.mb-xs.mt-xs.mr-xs.modal-with-zoom-anim.btn.btn-default#trigger-lib( href='#modalAnim') Open with fade-zoom animation
+        #modalAnim.zoom-anim-dialog.modal-block.modal-block-primary.mfp-hide
+            section.panel
+                header.panel-heading
+                    h2.panel-title Danh sách hình ảnh
+                .panel-body#body-modal
+
+                footer.panel-footer
+                    .row
+                        .col-md-12.text-right
+                            button.btn.btn-primary.modal-confirm.modal-save-image Xác nhận
+                            button.btn.btn-default.modal-dismiss Thoát
+
+        block JS
+
+        // Theme Base, Components and Settings
+        script(src="../assets/app/javascripts/theme.js")
+
+        // Theme Custom
+        script(src="../assets/app/javascripts/theme.custom.js")
+
+        // Theme Initialization Files
+        script(src="../assets/app/javascripts/theme.init.js")
+
+        block footerJS
+        script(src="../assets/app/javascripts/role/role.js")
+        script.
+            $(window).bind("pageshow", function (event) {
+                if (event.originalEvent.persisted) {
+                    window.location.reload()
+                }
+            });
+
+            // init for image library modal
+            $('.modal-with-zoom-anim').magnificPopup({
+                type: 'inline',
+                fixedContentPos: false,
+                fixedBgPos: true,
+                overflowY: 'auto',
+                closeBtnInside: true,
+                preloader: false,
+                midClick: true,
+                removalDelay: 300,
+                mainClass: 'my-mfp-zoom-in',
+                modal: true
+            });
+
+            $(document).on('click', '.modal-dismiss', function (e) {
+                e.preventDefault();
+                $.magnificPopup.close();
+            });

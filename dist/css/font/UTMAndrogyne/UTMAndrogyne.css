@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'UTMAndrogyne';
+    src: url('fonts/UTMAndrogyne.eot');
+    src: url('fonts/UTMAndrogyne.eot') format('embedded-opentype'),
+         url('fonts/UTMAndrogyne.woff2') format('woff2'),
+         url('fonts/UTMAndrogyne.woff') format('woff'),
+         url('fonts/UTMAndrogyne.ttf') format('truetype'),
+         url('fonts/UTMAndrogyne.svg#UTMAndrogyne') format('svg');
+}

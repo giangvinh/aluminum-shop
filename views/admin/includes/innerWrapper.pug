@@ -1,0 +1,91 @@
+div.inner-wrapper
+    // start: sidebar
+    aside(id="sidebar-left" class="sidebar-left")
+        div.sidebar-header
+            div.sidebar-title(id='userbox' class='userbox')
+                a(href='#' data-toggle='dropdown')
+                    //figure.profile-picture
+                    //    img(src='../assets/app/images/!logged-user.jpg' alt='Joseph Doe' class='img-circle' data-lock-picture='../assets/app/images/!logged-user.jpg')
+                    div(class='profile-info' data-lock-name='John Doe' data-lock-email='username')
+                        span Chào&nbsp;
+                        span#logged_username  username
+                        //if is_admin
+                        //    span.role Admin
+                        //else
+                        //    span.role Người dùng thông thường
+                    i(class='fa custom-caret' style="color:#C3C3C3")
+                div.dropdown-menu
+                    ul.list-unstyled
+                        li.divider
+                        //li
+                        //    a(role='menuitem' tabindex='-1' href='pages-user-profile.html') <i class="fa fa-user"></i> My Profile
+                        //li
+                        //    a(role='menuitem' tabindex='-1' href='#' data-lock-screen='true') <i class="fa fa-lock"></i> Lock Screen
+                        li
+                            a(role='menuitem' tabindex='-1' onclick='log_out()' ) <i class="fa fa-power-off"></i> Đăng xuất
+            div(class="sidebar-toggle hidden-xs" data-toggle-class="sidebar-left-collapsed" data-target="html" data-fire-event="sidebar-left-toggle")
+                i(class="fa fa-bars" aria-label="Toggle sidebar")
+
+        div.nano
+            div.nano-content
+                nav(id="menu" class="nav-main" role="navigation")
+                    ul(class='nav nav-main' id="left-menu")
+
+                        li.nav-parent#sanpham-page
+                            a()
+                                i(class="glyphicon glyphicon-book" aria-hidden="true")
+                                span Quản lý sản phẩm
+                            ul(class="nav nav-children")
+                                li.nav-parent#them-danh-muc-san-pham
+                                    a(href='them-danh-muc-san-pham')
+                                        span Thêm danh mục sản phẩm
+                                li.nav-parent#danh-sach-danh-muc-san-pham
+                                    a(href='danh-sach-danh-muc-san-pham')
+                                        span Danh sách danh mục sản phẩm
+                                li.nav-parent#them-san-pham-don-vi
+                                    a(href='them-san-pham-don-vi')
+                                        span Thêm sản phẩm
+                                li.nav-parent#danh-sach-san-pham-don-vi
+                                    a(href='danh-sach-san-pham-don-vi')
+                                        span Danh sách sản phẩm
+
+
+                        li.nav-parent#order-page
+                            a()
+                                i(class="glyphicon glyphicon-credit-card" aria-hidden="true")
+                                span Quản lý đơn hàng
+                            ul(class="nav nav-children")
+                                li.nav-parent#them-don-hang
+                                    a(href='them-don-hang')
+                                        span Tạo đơn hàng
+                                li.nav-parent#danh-sach-don-hang
+                                    a(href='danh-sach-don-hang')
+                                        span Danh sách đơn hàng
+
+
+                        li.nav-parent#user-page
+                            a()
+                                i(class="glyphicon glyphicon-credit-card" aria-hidden="true")
+                                span Quản lý user
+                            ul(class="nav nav-children")
+                                li.nav-parent#them-user-admin
+                                    a(href='them-user-admin')
+                                        span Thêm user
+                                li.nav-parent#danh-sach-user-admin
+                                    a(href='danh-sach-user-admin')
+                                        span Danh sách user
+                        li.nav-parent#statics-page
+                            a()
+                                i(class="glyphicon glyphicon-credit-card" aria-hidden="true")
+                                span Thống kê
+                            ul(class="nav nav-children")
+                                li.nav-parent#thong-ke-tai-san
+                                    a(href='thong-ke-tai-san')
+                                        span Thống kê tài sản
+
+
+
+    // end: sidebar
+    section(role="main" class="content-body")
+        block header
+        block content

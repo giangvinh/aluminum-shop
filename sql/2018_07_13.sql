@@ -1,0 +1,1 @@
+ALTER TABLE `purchaseorderdetail` MODIFY COLUMN quantity float

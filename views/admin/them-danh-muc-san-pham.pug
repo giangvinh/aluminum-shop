@@ -1,0 +1,68 @@
+extends adminLayout
+block css
+    link(rel="stylesheet" href="../assets/app/vendor/bootstrap/css/bootstrap.css")
+
+    link(rel="stylesheet" href="../assets/app/vendor/font-awesome/css/font-awesome.css")
+    link(rel="stylesheet" href="../assets/app/vendor/magnific-popup/magnific-popup.css")
+    link(rel="stylesheet" href="../assets/app/vendor/bootstrap-datepicker/css/datepicker3.css")
+    link(rel="stylesheet" href="../assets/app/vendor/pnotify/pnotify.custom.css")
+    link(rel="stylesheet" href="../assets/app/vendor/jquery-ui/css/ui-lightness/jquery-ui-1.10.4.custom.css")
+
+block info
+    script.
+        var page_name = "sanpham-page";
+        var page_sub_name="them-danh-muc-san-pham";
+        var imageDaiDien = null;
+        var imageBanner = null;
+
+
+block header
+    header.page-header
+        h2 Thêm danh mục sản phẩm
+        div(class="right-wrapper pull-right")
+            ol.breadcrumbs
+                li
+                    a(href="dashboard")
+                        i(class="fa fa-home")
+                li
+                    span Quản lý sản phẩm
+                li
+                    span Thêm danh mục sản phẩm
+
+            a(class="sidebar-right-toggle" data-open="sidebar-right")
+                i(class="fa fa-chevron-left")
+
+block content
+
+    // start: page
+    .row
+        .col-lg-12
+            section.panel
+                header.panel-heading
+                    .panel-actions
+                        a.panel-action.panel-action-toggle(href='#', data-panel-toggle='')
+                        a.panel-action.panel-action-dismiss(href='#', data-panel-dismiss='')
+                    h2.panel-title Thêm danh mục sản phẩm
+                .panel-body.form-bordered
+
+                    .form-group.need
+                        label.col-md-3.control-label Tên danh mục
+                        .col-md-9
+                            input#ip-name.form-control(type='text')
+
+                footer(class="panel-footer")
+                    div(class="row")
+                        div(class="col-sm-9 col-sm-offset-3")
+                            button.btn.btn-primary.btn-delete(onclick='add()')= "Thêm danh mục"
+
+
+
+
+
+
+block JS
+    script(src="../assets/app/vendor/jquery-ui/js/jquery-ui-1.10.4.custom.js")
+    script(src="../assets/app/vendor/pnotify/pnotify.custom.js")
+
+block footerJS
+    script(src="../assets/app/javascripts/quan-ly-san-pham/them-danh-muc-san-pham.js")

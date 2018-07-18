@@ -1,0 +1,575 @@
+mixin editContent(content_id, isEdit, addCategoryID, addEntityCode, addedRedirect)
+
+    script(src="../assets/app/vendor/tags-input/tags-input.js")
+
+
+    section.panel
+        header.panel-heading
+            .panel-actions
+                a.panel-action.panel-action-toggle(href='#', data-panel-toggle='')
+                a.panel-action.panel-action-dismiss(href='#', data-panel-dismiss='')
+            h2.panel-title= isEdit ? "Cập nhật bài viết" : "Thêm bài viết"
+        .panel-body.form-bordered
+            input#ip-content-id.form-control(type='hidden' value='')
+            input#ip-content-entity-code.form-control(type='hidden' value=addEntityCode)
+            input#ip-content-category-id.form-control(type='hidden' value=addCategoryID)
+            .form-group.need
+                label.col-md-3.control-label Hình ảnh (Kích thước tốt nhất: 340w x 250h)
+                .col-md-7
+                    form(enctype='multipart/form-data')
+                        input#file_to_upload.form-control(type='file')
+                    img#ip-image-sample(class="image-sample")
+                .col-md-2
+                    button.btn.btn-primary(onclick='show_image_lib_ori("normal")') Thư viện ảnh
+            .form-group.need
+                label.col-md-3.control-label Hình ảnh (Kích thước tốt nhất: 1350w x 565h)
+                .col-md-7
+                    form(enctype='multipart/form-data')
+                        input#file_to_upload_large.form-control(type='file')
+                    img#ip-image-sample-large(class="image-sample")
+                .col-md-2
+                    button.btn.btn-primary(onclick='show_image_lib_ori("top")') Thư viện ảnh
+            .form-group
+                label.col-md-3.control-label Hình ảnh banner (Kích thước tốt nhất: 1920w x 360h)
+                .col-md-7
+                    form(enctype='multipart/form-data')
+                        input#file_to_upload_banner.form-control(type='file')
+                    img#ip-image-sample-banner( class="image-sample")
+                .col-md-2
+                    button.btn.btn-primary(onclick='show_image_lib_ori("banner")') Thư viện ảnh
+            .form-group
+                label.col-md-3.control-label Link liên kết banner
+                .col-md-9
+                    input#ip-link-banner.form-control(type='text' value='')
+            .form-group.need
+                label.col-md-3.control-label Nhãn
+                .col-md-9
+                    input#ip-tag.form-control(type='tags' value='')
+
+
+            .form-group.need
+                label.col-md-3.control-label Thứ tự sắp xếp
+                .col-md-9
+                    input#ip-order.form-control(type='number' value='')
+
+            .col-md-12
+                .tabs
+                    ul.nav.nav-tabs.nav-justified
+                        li.active
+                            a.text-center(href='#vi-tab', data-toggle='tab')
+                                i.fa.fa-star
+                                |  Việt Nam
+                        li
+                            a.text-center(href='#en-lab', data-toggle='tab') English
+                    .tab-content
+                        #vi-tab.tab-pane.active
+                            .form-group.need
+                                label.col-md-3.control-label Tiêu đề
+                                .col-md-9
+                                    input#ip-title-vi.form-control(type='text' value='')
+
+                            .form-group.need
+                                label.col-md-3.control-label Mô tả
+                                .col-md-9
+                                    textarea#ip-des-vi.form-control(rows='', data-plugin-textarea-autosize='')
+
+                            .form-group.need
+                                label.col-md-3.control-label#vi-label(data='') Nội dung HTML
+                                .col-md-9
+                                    .input-group.mb-md.adjoined-bottom
+                                        .grid-container
+                                            .grid-width-100
+                                                textarea#editor1(name='editor1', rows='10', cols='80')
+
+                                    button.input-group.mb-md.btn.btn-default.btn-delete(onclick='review_vi()')= "Xem trước"
+
+
+                            .form-group
+                                label.col-md-3.control-label() Thiết lập SEO
+                                .col-md-9
+                                    .input-group.mb-md#snippet-vi(style="display:none")
+                                    .input-group.mb-md Meta title
+                                    input#meta-title-vi.input-group.mb-md.form-control(type='text' value='')
+                                    .input-group.mb-md Meta keyword
+                                    input#meta-keyword-vi.input-group.mb-md.form-control(type='text' value='')
+                                    .input-group.mb-md Meta description
+                                    input#meta-description-vi.input-group.mb-md.form-control(type='text' value='')
+                                    .input-group.mb-md#output-vi
+                                    .input-group.mb-md#contentOutput-vi(style="display:none")
+
+
+                        #en-lab.tab-pane
+
+
+                            .form-group.need
+                                label.col-md-3.control-label Tiêu đề
+                                .col-md-9
+                                    input#ip-title-en.form-control(type='text' value='')
+
+                            .form-group.need
+                                label.col-md-3.control-label Mô tả
+                                .col-md-9
+                                    textarea#ip-des-en.form-control(rows='', data-plugin-textarea-autosize='')
+
+
+
+                            .form-group.need
+                                label.col-md-3.control-label#en-label(data='') Nội dung HTML
+                                .col-md-9
+                                    .input-group.mb-md.adjoined-bottom
+                                        .grid-container
+                                            .grid-width-100
+                                                textarea#editor2(name='editor1', rows='10', cols='80')
+                                    button.input-group.mb-md.btn.btn-default.btn-delete(onclick='review_en()')= "Xem trước"
+
+                            .form-group
+                                label.col-md-3.control-label() Thiết lập SEO
+                                .col-md-9
+                                    .input-group.mb-md#snippet-en(style="display:none")
+                                    .input-group.mb-md Meta title
+                                    input#meta-title-en.input-group.mb-md.form-control(type='text' value='')
+                                    .input-group.mb-md Meta keyword
+                                    input#meta-keyword-en.input-group.mb-md.form-control(type='text' value='')
+                                    .input-group.mb-md Meta description
+                                    input#meta-description-en.input-group.mb-md.form-control(type='text' value='')
+                                    .input-group.mb-md#output-en
+                                    .input-group.mb-md#contentOutput-en(style="display:none")
+
+
+        footer(class="panel-footer")
+            div(class="row")
+                div(class="col-sm-9 col-sm-offset-3")
+                    button.btn.btn-primary.btn-delete(onclick='update()')= isEdit ? "Sửa bài viết" : "Thêm bài viết"
+
+
+    script(src="../assets/app/vendor/yoast-dev/editContentVI_bundle.js")
+    //script(src="../assets/app/vendor/yoast-dev/editContentEN_bundle.js")
+
+    script.
+
+        CKEDITOR.replace('editor1', {
+            filebrowserUploadUrl: 'upload-hinh/uploader'
+        });
+        CKEDITOR.replace('editor2', {
+            filebrowserUploadUrl: 'upload-hinh/uploader'
+        });
+
+        var image_link = null;
+        var image_large_link = null;
+        var image_banner_link = null;
+
+        $(document).on('click', '.modal-confirm', function (e) {
+            e.preventDefault();
+            $.magnificPopup.close();
+            var name = $(".image-lib.has-border").attr("image-name");
+            var url = $(".image-lib.has-border").attr("image-url");
+            if (name && name.length > 0 && url && url.length > 0) {
+                if ($(".modal-confirm").attr("id") == "normal") {
+                    image_link = name;
+                    $('#ip-image-sample').attr("src", url);
+                } else if ($(".modal-confirm").attr("id") == "top") {
+                    image_large_link = name;
+                    $('#ip-image-sample-large').attr("src", url);
+                } else if ($(".modal-confirm").attr("id") == "banner") {
+                    image_banner_link = name;
+                    $('#ip-image-sample-banner').attr("src", url);
+                }
+                $('.image-lib').removeClass("has-border");
+
+            }
+        });
+
+
+        function getContentLanguage(content_id, entity_code, language, callback) {
+            $.ajax({
+                url: "utility/get-language-content",
+                type: "post", //send it through get method
+                data: JSON.stringify({
+                    content_id: content_id,
+                    entity_code: entity_code,
+                    language: language
+                }), contentType: "application/json",
+
+                success: function (response) {
+                    if (response.response_code == "SUCC_EXEC") {
+                        if (response.data != null) {
+                            callback(response.data);
+                        }
+
+                    } else {
+                        new PNotify({
+                            title: 'Thông báo',
+                            text: 'Không thể lấy nội dung ' + response.description,
+                            type: 'error'
+                        });
+                    }
+
+                }
+            });
+        }
+
+        function getContent(content_id) {
+            $.ajax({
+                url: "utility/get-content",
+                type: "post", //send it through get method
+                data: JSON.stringify({
+                    content_id: content_id
+                }), contentType: "application/json",
+
+                success: function (response) {
+                    if (response.response_code == "SUCC_EXEC") {
+                        if (response.data != null) {
+                            image_link = response.data.content_image;
+                            image_large_link = response.data.content_image_large;
+                            image_banner_link = response.data.content_image_banner_alternative;
+                            $("#ip-content-id").val(response.data.content_id);
+                            $("#ip-content-entity-code").val(response.data.content_entity_code);
+
+                            $("#ip-tag").val(response.data.content_tags);
+                            addTagInput();
+
+                            $("#ip-order").val(response.data.content_sort_order);
+                            $("#ip-image-sample").attr("src", "../upload/" + response.data.content_image);
+                            $("#ip-image-sample-large").attr("src", "../upload/" + response.data.content_image_large);
+                            $("#ip-image-sample-banner").attr("src", "../upload/" + response.data.content_image_banner_alternative);
+
+                            $("#ip-link-banner").val(response.data.content_link);
+                            $("#ip-show-banner").attr("checked", response.data.content_status > 0);
+
+                            $("#content_main").css("display", "");
+                            var content_entity_code = response.data.content_entity_code;
+                            getContentLanguage(content_id, content_entity_code, "vi", function (content_data) {
+
+                                $("#ip-title-vi").val(content_data.title);
+                                $("#ip-des-vi").val(content_data.description);
+                                $("#meta-keyword-vi").val(content_data.meta_keywords);
+                                $("#meta-description-vi").val(content_data.meta_description);
+                                $("#meta-title-vi").val(content_data.meta_title);
+                                CKEDITOR.instances.editor1.setData(content_data.contentHTML);
+                            });
+
+                            getContentLanguage(content_id, content_entity_code, "en", function (content_data) {
+                                $("#ip-title-en").val(content_data.title);
+                                $("#ip-des-en").val(content_data.description);
+                                $("#meta-keyword-en").val(content_data.meta_keywords);
+                                $("#meta-description-en").val(content_data.meta_description);
+                                $("#meta-title-en").val(content_data.meta_title);
+                                CKEDITOR.instances.editor2.setData(content_data.contentHTML);
+                            });
+
+                        }
+
+                    } else {
+                        new PNotify({
+                            title: 'Thông báo',
+                            text: 'Không thể lấy nội dung ' + response.description,
+                            type: 'error'
+                        });
+                    }
+
+                }
+            });
+        }
+
+        function uploadFile(callback) {
+            if ($("#file_to_upload").val() != "") {
+                var file_data = $('#file_to_upload').prop('files')[0];
+                var form_data = new FormData();
+
+                form_data.append('file', file_data);
+
+                $.ajax({
+                    url: 'upload-hinh', // point to server-side PHP script
+                    dataType: 'text',  // what to expect back from the PHP script, if anything
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    data: form_data,
+                    type: 'post',
+                    success: function (data) {
+                        // get server responce here
+                        data = JSON.parse(data);
+                        // clear file field
+                        $("#file_to_upload").val("");
+                        if (data.response_code == "SUCC_EXEC") {
+                            callback(data.data);
+                        } else {
+                            new PNotify({
+                                title: 'Thông báo',
+                                text: 'Upload hình ảnh thất bại',
+                                type: 'error'
+                            });
+                        }
+                    }
+                });
+            }
+            else if (image_link && image_link.length) {
+                callback(image_link);
+            } else {
+                alert("Chưa chọn hình đại diện");
+            }
+        }
+
+        function uploadFileBanner(callback) {
+            if ($("#file_to_upload_banner").val() != "") {
+                var file_data = $('#file_to_upload_banner').prop('files')[0];
+                var form_data = new FormData();
+
+                form_data.append('file', file_data);
+
+                $.ajax({
+                    url: 'upload-hinh', // point to server-side PHP script
+                    dataType: 'text',  // what to expect back from the PHP script, if anything
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    data: form_data,
+                    type: 'post',
+                    success: function (data) {
+                        // get server responce here
+                        data = JSON.parse(data);
+                        // clear file field
+                        $("#file_to_upload_banner").val("");
+                        if (data.response_code == "SUCC_EXEC") {
+                            callback(data.data);
+                        } else {
+                            new PNotify({
+                                title: 'Thông báo',
+                                text: 'Upload hình ảnh thất bại',
+                                type: 'error'
+                            });
+                        }
+                    }
+                });
+            }
+            else if (image_banner_link && image_banner_link.length) {
+                callback(image_banner_link);
+            } else {
+                callback(null);
+            }
+        }
+
+        function uploadFileLarge(callback) {
+            if ($("#file_to_upload_large").val() != "") {
+                var file_data = $('#file_to_upload_large').prop('files')[0];
+                var form_data = new FormData();
+
+                form_data.append('file', file_data);
+
+                $.ajax({
+                    url: 'upload-hinh', // point to server-side PHP script
+                    dataType: 'text',  // what to expect back from the PHP script, if anything
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    data: form_data,
+                    type: 'post',
+                    success: function (data) {
+                        // get server responce here
+                        data = JSON.parse(data);
+                        // clear file field
+                        $("#file_to_upload_large").val("");
+                        if (data.response_code == "SUCC_EXEC") {
+                            callback(data.data);
+                        } else {
+                            new PNotify({
+                                title: 'Thông báo',
+                                text: 'Upload hình ảnh thất bại',
+                                type: 'error'
+                            });
+                        }
+                    }
+                });
+            }
+            else if (image_large_link && image_large_link.length) {
+                callback(image_large_link);
+            } else {
+                alert("Chưa chọn hình ở top");
+            }
+        }
+
+        function parse_number(number) {
+            return parseFloat(Math.round(number * 100) / 100).toFixed(2);
+        }
+
+        function format_money() {
+            var number = $("#ip-price").val();
+            number = parse_number(number);
+            $("#ip-price").val(number);
+        }
+        function update() {
+            var order = $("#ip-order").val();
+            var des_vi = $("#ip-des-vi").val();
+            var tag = $("#ip-tag").val();
+            var title_vi = $("#ip-title-vi").val();
+            var html_vi = CKEDITOR.instances.editor1.getData();
+            var des_en = $("#ip-des-en").val();
+            var title_en = $("#ip-title-en").val();
+            var html_en = CKEDITOR.instances.editor2.getData();
+
+            var meta_keyword_vi = $("#meta-keyword-vi").val();
+            var meta_description_vi = $("#meta-description-vi").val();
+            var meta_title_vi = $("#meta-title-vi").val();
+            var meta_keyword_en = $("#meta-keyword-en").val();
+            var meta_description_en = $("#meta-description-en").val();
+            var meta_title_en = $("#meta-title-en").val();
+
+            if (tag.length == 0) {
+                alert("Chưa thêm nhãn");
+                return;
+            }
+
+            if (order.length == 0) {
+                alert("Chưa thêm thứ tự sắp xếp");
+                return;
+            }
+
+
+            if (des_vi.length == 0) {
+                alert("Chưa thêm mô tả sản phẩm tiếng việt");
+                return;
+            }
+
+            if (title_vi.length == 0) {
+                alert("Chưa thêm tiêu đề sản phẩm tiếng việt");
+                return;
+            }
+            if (html_vi.length == 0) {
+                alert("Chưa thêm HTML sản phẩm tiếng việt");
+                return;
+            }
+            if (des_en.length == 0) {
+                des_en = des_vi;
+                $("#ip-des-en").val(des_en);
+            }
+
+            if (title_en.length == 0) {
+                title_en = title_vi;
+                $("#ip-title-en").val(title_en);
+            }
+            if (html_en.length == 0) {
+                html_en = html_vi;
+                CKEDITOR.instances.editor2.setData(html_en);
+            }
+            if (meta_keyword_vi.length == 0) {
+                alert("Chưa thêm meta key tiếng việt");
+                return;
+            }
+            if (meta_description_vi.length == 0) {
+                alert("Chưa thêm meta description tiếng việt");
+                return;
+            }
+            if (meta_title_vi.length == 0) {
+                alert("Chưa thêm meta title tiếng việt");
+                return;
+            }
+
+            if (meta_keyword_en.length == 0) {
+                meta_keyword_en = meta_keyword_vi;
+                $("#meta-keyword-en").val(meta_keyword_en);
+            }
+            if (meta_description_en.length == 0) {
+                meta_description_en = meta_description_vi;
+                $("#meta-description-en").val(meta_description_en);
+            }
+            if (meta_title_en.length == 0) {
+                meta_title_en = meta_title_vi;
+                $("#meta-title-en").val(meta_title_en);
+            }
+
+            uploadFile(function (url) {
+                uploadFileLarge(function (largeUrl) {
+                    uploadFileBanner(function (bannerUrl) {
+
+                        var apiUrl = "utility/add-content";
+                        var content_id = $('#ip-content-id').val();
+                        var category_id = $('#ip-content-category-id').val();
+                        var entity_code = $('#ip-content-entity-code').val();
+                        var banner_link = $("#ip-link-banner").val();
+
+                        if (#{isEdit}) {
+                            apiUrl = "utility/update-content";
+                        }
+
+                        $.ajax({
+                            url: apiUrl,
+                            type: "post", //send it through get method
+                            data: JSON.stringify({
+                                order: order,
+                                tag: tag,
+                                des_vi: des_vi,
+                                title_vi: title_vi,
+                                html_vi: html_vi,
+                                des_en: des_en,
+                                title_en: title_en,
+                                html_en: html_en,
+                                meta_title_vi: meta_title_vi,
+                                meta_description_vi: meta_description_vi,
+                                meta_keyword_vi: meta_keyword_vi,
+                                meta_description_en: meta_description_en,
+                                meta_keyword_en: meta_keyword_en,
+                                meta_title_en: meta_title_en,
+                                image: url,
+                                image_large: largeUrl,
+                                image_banner: bannerUrl,
+                                banner_link: banner_link,
+                                category_id: category_id,
+                                entity_code: entity_code,
+                                id: content_id
+                            }), contentType: "application/json",
+
+                            success: function (response) {
+                                if (response.response_code == "SUCC_EXEC") {
+                                    new PNotify({
+                                        title: 'Thông báo',
+                                        text: 'Sửa bài viết [' + title_vi + "] thành công",
+                                        type: 'success'
+                                    });
+
+                                    image_banner_link = bannerUrl;
+                                    image_large_link = largeUrl;
+                                    image_link = url;
+                                    $("#ip-image-sample-banner").attr("src", '../upload/' + bannerUrl);
+                                    $("#ip-image-sample-large").attr("src", '../upload/' + largeUrl);
+                                    $("#ip-image-sample").attr("src", '../upload/' + url);
+
+                                    if (#{!isEdit}) {
+                                        window.location.href = '#{addedRedirect}' + response.data.content_id;
+                                    }
+
+
+                                } else {
+                                    new PNotify({
+                                        title: 'Thông báo',
+                                        text: 'Sửa bài viết [' + title_vi + "] thất bại\n" + response.description,
+                                        type: 'error'
+                                    });
+                                }
+
+                            },
+                            error: function (xhr) {
+                                //Do Something to handle error
+                                new PNotify({
+                                    title: 'Thông báo',
+                                    text: 'Sửa bài viết [' + title_vi + "] thất bại",
+                                    type: 'error'
+                                });
+                            }
+                        });
+                    });
+                });
+            })
+        }
+
+        function addTagInput() {
+            tagsInput(document.querySelector('input[type="tags"]'));
+            $(".tags-input").css("display", "inherit");
+            $(".tags-input").css("width", "auto");
+
+        }
+
+        if (#{isEdit}) {
+            getContent('#{content_id}');
+        } else {
+            addTagInput();
+        }

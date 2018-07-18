@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'UTMHelveBold';
+    src: url('fonts/UTMHelveBold.eot');
+    src: url('fonts/UTMHelveBold.eot') format('embedded-opentype'),
+         url('fonts/UTMHelveBold.woff2') format('woff2'),
+         url('fonts/UTMHelveBold.woff') format('woff'),
+         url('fonts/UTMHelveBold.ttf') format('truetype'),
+         url('fonts/UTMHelveBold.svg#UTMHelveBold') format('svg');
+}

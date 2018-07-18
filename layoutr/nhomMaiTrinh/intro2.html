@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+<link id="favicon" rel="shortcut icon" href="img/favicon.png" type="image/x-icon" />
+<title>Sứ mệnh Opera</title>
+<meta name="description" content="Sứ mệnh Opera">
+<meta name="keywords" content="Sứ mệnh Opera">
+
+<meta name="robots" content="noodp,index,follow" />
+<meta name="google" content="notranslate" />
+<meta name='revisit-after' content='1 days' />
+<meta name="ICBM" content="">
+<meta name="geo.position" content="">
+<meta name="geo.placename" content="">
+<meta name="author" content="">
+
+<script language="javascript" type="text/javascript" src="js/jquery-1.9.1.js"></script>
+<link href="bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="css/ddsmoothmenu.css" />
+<link rel="stylesheet" type="text/css" href="css/ddsmoothmenu-v.css" />
+<link type="text/css" rel="stylesheet" href="mmenu/dist/css/jquery.mmenu.all.css" />
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="css/font-awesome/css/font-awesome.css" />
+<link rel="stylesheet" type="text/css" href="js/owl_carousel/assets/owl.carousel.css" />
+<script src="js/plugins-scroll.js"></script>
+
+<script type="text/javascript" language="javascript" src="bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="mmenu/dist/js/jquery.mmenu.all.min.js"></script>
+<script type="text/javascript" src="js/owl_carousel/owl.carousel.min.js"></script>
+<script type="text/javascript" src="js/script.js"></script>
+<script type="text/javascript" src="js/operaMart.js"></script>
+<script type="text/javascript" src="js/ddsmoothmenu.js"></script>
+</head>
+<body>
+<nav id="menu_mobi" class="mm-menu mm-horizontal mm-offcanvas" style="font-family: Calibri;">
+		<ul>
+			<li><a class="active" href="#">Giới thiệu</a></li>
+			<li><a href="#">Sản phẩm</a>
+				<ul>
+					<li><a href="">THỰC PHẨM CAO CẤP</a>
+						<ul>
+							<li><a href="">Thực phẩm Nhật Bản</a></li>
+							<li><a href="">Thực phẩm Hàn Quốc</a></li>
+							<li><a href="">Thực phẩm Thái Lan</a></li>
+							<li><a href="">Thực phẩm Asean</a></li>
+							<li><a href="">Thực phẩm Châu Âu</a></li>
+							<li><a href="">Thực phẩm Mỹ - Canada</a></li>
+							<li><a href="">Thực phẩm Úc - New Zealand</a></li>
+						</ul>
+					</li>
+					<li><a href="">GIA VỊ CAO CẤP</a>
+						<ul>
+							<li><a href="">Gia vị món Âu</a></li>
+							<li><a href="">Gia vị món Nhật</a></li>
+							<li><a href="">Gia vị món Hàn</a></li>
+							<li><a href="">Gia vị Hồng Kong</a></li>
+							<li><a href="">Gia vị Singapore</a></li>
+							<li><a href="">Gia vị món Thái</a></li>
+							<li><a href="">Gia vị quốc tế</a></li>
+							<li><a href="">Gia vị tiện dụng</a></li>
+							<li><a href="">Gia vị cartering</a></li>
+							<li><a href="">Nước mắm phan thiết</a></li>
+							<li><a href="">Gia vị Việt</a></li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+			<li><a href="#">Khuyến mãi</a></li>
+			<li><a href="#">Cẩm nang món ngon</a></li>
+			<li><a href="#">Chính sách bán hàng</a></li>
+			<li><a href="#">Liên hệ</a></li>
+			<li><a href="#"><img width="24" src="img/user.png" alt="Cart">&nbsp;Tài khoản</a></li>
+			<li><a href="#"><img width="24" src="img/cart.png" alt="Cart">&nbsp;Giỏ hàng</a></li>
+		</ul>
+	</nav>
+	<div id="container">
+		<div class="loader">
+		    <div class="loader-overlay"></div>
+		    <div class="loader-animate">Loading...</div>
+		</div>
+		<header id="header">
+			<a href="#menu_mobi"><div class="menu_mobi"><span></span></div></a>
+			<ul id="lang-m">
+				<li><a href=""><img src="img/lang_vi.png" alt="Lang vi"></a></li>
+				<li><a href=""><img src="img/lang_en.png" alt="Lang en"></a></li>
+			</ul>
+			<div class="container">
+				<div class="col-md-4 col-lg-4 col-sm-5 col-xx-5 col-xs-12">
+					<div id="logo">
+						<a href="index.html"><img src="img/logo.png" alt="Logo"></a>
+					</div>
+				</div>
+				<div class="col-md-5 col-lg-6 col-sm-7 col-xx-7 col-xs-12">
+					<div id="slogan">
+						<img src="img/slogan.png" alt="Slogan">
+					</div>
+					<div id="search">
+						<select name="category" id="category">
+							<option value="">Tấc cả</option>
+							<option value="Xách">Xách</option>
+							<option value="Xách">Xách</option>
+							<option value="Xách">Xách</option>
+						</select>
+					    <input type="text" size="25" placeholder="Tìm sản phẩm bạn mong muốn" onkeypress="doEnter(event,'keyword');" id="keyword" class="text_search">
+					    <input type="button" value="" class="button_search" onclick="onSearch(event,'keyword');">
+					</div>
+				</div>
+				<div class="col-md-3 col-lg-2 col-sm-12 col-xx-12 col-xs-12">
+					<ul id="lang">
+						<li><a href=""><img src="img/lang_vi.png" alt="Lang vi"></a></li>
+						<li><a href=""><img src="img/lang_en.png" alt="Lang en"></a></li>
+					</ul>
+					<span id="hotline">1900 5588 28</span>
+					<span class="clearfix"></span>
+					<span id="website">www.operamart.vn</span>
+					<ul id="account">
+						<li><a href="#">Tài khoản</a></li>
+						<li><a href="#"><img src="img/cart.png" alt="Cart"></a></li>
+					</ul>
+				</div>
+			</div>
+			<div id="top">
+				<div class="container">
+					<nav id="smoothmenu1" class="ddsmoothmenu">
+						<ul class="menu_top">
+							<li><a class="active" href="intro.html">Giới thiệu</a></li>
+							<li><a href="product.html">Sản phẩm</a>
+								<ul>
+									<li><a href="">THỰC PHẨM CAO CẤP</a>
+										<div class="sub">
+											<a href="">Thực phẩm Nhật Bản</a>
+											<a href="">Thực phẩm Hàn Quốc</a>
+											<a href="">Thực phẩm Thái Lan</a>
+											<a href="">Thực phẩm Asean</a>
+											<a href="">Thực phẩm Châu Âu</a>
+											<a href="">Thực phẩm Mỹ - Canada</a>
+											<a href="">Thực phẩm Úc - New Zealand</a>
+										</div>
+									</li>
+									<li><a href="">GIA VỊ CAO CẤP</a>
+										<div class="sub">
+											<a href="">Gia vị món Âu</a>
+											<a href="">Gia vị món Nhật</a>
+											<a href="">Gia vị món Hàn</a>
+											<a href="">Gia vị Hồng Kong</a>
+											<a href="">Gia vị Singapore</a>
+											<a href="">Gia vị món Thái</a>
+											<a href="">Gia vị quốc tế</a>
+											<a href="">Gia vị tiện dụng</a>
+											<a href="">Gia vị cartering</a>
+											<a href="">Nước mắm phan thiết</a>
+											<a href="">Gia vị Việt</a>
+										</div>
+									</li>
+								</ul>
+							</li>
+							<li><a href="#">Khuyến mãi</a></li>
+							<li><a href="#">Cẩm nang món ngon</a></li>
+							<li><a href="#">Chính sách bán hàng</a></li>
+							<li><a href="#">Liên hệ</a></li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+		</header>
+		<main id="main">
+			<div id="banner-intro">
+				<img src="img/slider3.png" alt="Công ty cổ phần opera">
+			</div>
+			<div class="container">
+				<div id="introduce">
+					<div id="menu-left">
+						<span>Giới thiệu</span>
+						<ul>
+							<li><a href="intro.html">Công ty cổ phần Opera</a></li>
+							<li><a href="intro1.html">Tầm nhìn</a></li>
+							<li class="active"><a href="intro2.html">Sứ mệnh</a></li>
+							<li><a href="intro3.html">Chính sách chất lượng</a></li>
+						</ul>
+					</div>
+					<div id="content">
+						<div class="title">
+							<h1>Sứ mệnh Opera</h1>
+						</div>
+						<div class="content">
+							Opera cam kết phục vụ cộng đồng với nguồn thực phẩm chất lượng cao cấp hàng đầu, bằng tất cả sự trân trọng và trách nhiệm cao của mình với cuộc sống con người và xã hội.
+						</div>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+			</div>
+		</main>
+		<footer id="footer">
+			<div id="footer_top">
+				<div class="container">
+					<div class="col-md-4 col-lg-4 col-sm-6 col-xx-6 col-xs-12">
+						<div class="frm_2 wow fadeIn data-wow-delay='0'"  data-wow-offset="100" data-wow-duration="1" data-wow-delay="0s" style="visibility: visible; animation-delay: 0s; animation-name: fadeIn;">
+							<p class="title_ft">Opera - Thế giới thực phẩm cao cấp</p>
+							<ul>
+								<li>Công ty TNHH Hàng Tiêu Dùng Thái Long</a></li>
+								<li class="address_info">21 Nguyễn Ư Dĩ, Phường Thảo Điền, Q.2, Tp. Hồ Chí Minh, Việt Nam 1900 5588 28</li>
+								<li class="time_info">7h00 - 21h00 (Thứ 2 đến CN)</li>
+								<li class="code_info">Mã số doanh nghiệp: xxxxxxxxxxx do Phòng đăng ký kinh doanh - Sở Kế hoạch và Đầu tư TPHCM cấp ngày xx/x/20xx</li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-md-2 col-lg-2 col-sm-6 col-xx-6 col-xs-12">
+						<div class="frm_1 wow fadeIn data-wow-delay='0'"  data-wow-offset="100" data-wow-duration="1" data-wow-delay="0s" style="visibility: visible; animation-delay: 0s; animation-name: fadeIn;">
+							<p class="title_ft">Sản phẩm</p>
+							<ul>
+								<li><a href="">Khuyến mãi</a></li>
+								<li><a href="">Sản phẩm mới</a></li>
+								<li><a href="">Thịt bò nhập khẩu</a></li>
+								<li><a href="">Thịt heo nhập khẩu</a></li>
+								<li><a href="">Thực phẩm đông lạnh</a></li>
+								<li><a href="">Sản phẩm tiêu dùng</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-md-3 col-lg-3 col-sm-6 col-xx-6 col-xs-12">
+						<div class="frm_1 wow fadeIn data-wow-delay='0'"  data-wow-offset="100" data-wow-duration="1" data-wow-delay="0s" style="visibility: visible; animation-delay: 0s; animation-name: fadeIn;">
+							<p class="title_ft">Chính sách bán hàng</p>
+							<ul>
+								<li><a href="">Thẻ thành viên</a></li>
+								<li><a href="">Chính sách & quy định chung</a></li>
+								<li><a href="">Quy định và hình thức thanh toán</a></li>
+								<li><a href="">Chính sách vận chuyển, giao nhận</a></li>
+								<li><a href="">Chính sách bảo hành</a></li>
+								<li><a href="">Chính sách bảo mật thông tin</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-md-3 col-lg-3 col-sm-6 col-xx-6 col-xs-12">
+						<div class="frm_3 wow fadeIn data-wow-delay='0'"  data-wow-offset="100" data-wow-duration="1" data-wow-delay="0s" style="visibility: visible; animation-delay: 0s; animation-name: fadeIn;">
+							<p class="title_ft">Danh sách cửa hàng</p>
+							<ul>
+								<li>58 TRẦN NHÂN TÔN, P.2, Q.10, HCM</li>
+								<li>203 TÂN HƯƠNG, Q. TÂN PHÚ, HCM</li>
+								<li>49 BÙI VĂN BA, Q.7, HCM</li>
+								<li>1Q MAI VĂN VĨNH, Q.7, HCM</li>
+								<li>39 PHAN VĂN HÂN, Q. BÌNH THẠNH, HCM</li>
+								<li>206 BÙI MINH TRỰC, Q.8, HCM</li>
+								<li>9 BÙI HỮU NGHĨA, P.5, Q.5, HCM</li>
+								<li>179 HOÀNG HOA THÁM, Q. BÌNH THẠNH, HCM</li>
+								<li>93 HOÀNG HOA THÁM, Q.TÂN BÌNH, HCM</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="container">
+				<div id="bottom" class="wow fadeInUp data-wow-delay='0'"  data-wow-offset="100" data-wow-duration="1" data-wow-delay="0s" style="visibility: visible; animation-delay: 0s; animation-name: fadeInUp;">
+					Copyright 2018 @ OPERA - World Premium Foods. All rights reserved.
+					<div class="clear"></div>
+				</div>
+			</div>
+		</footer>
+		<div class="clear"></div>
+		<a href="#totop" title="top">
+			<img class="totop" src="img/top.png" alt="Go to top">
+		</a>
+		<div id="callnow">
+		    <ul>
+		        <li>
+		            <a href="tel:1900 5588 28" class="blink_me"><img src="img/call-m.png"> Call</a>
+		        </li>
+		        <li>
+		            <a href="sms:1900 5588 28"><img src="img/sms.png"> SMS</a>
+		        </li>
+		        <li>
+		            <a href="lien-he.html"><img src="img/map-m.png"> Map</a>
+		        </li>
+		    </ul>
+		</div>
+		<h1 class="visit_hidden fn vcard">Opera Mart</h1>
+		<script>
+			$(document).ready(function(){
+		        $(".loader").delay(1000).fadeOut("slow");
+		    });
+		</script>
+	</div>
+
+</body>
+</html>
